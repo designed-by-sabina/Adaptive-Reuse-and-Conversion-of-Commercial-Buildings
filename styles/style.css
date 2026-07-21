@@ -1,0 +1,162 @@
+/* Set global design variables (colors, spacing system, etc.) */
+:root {
+  /* Define main black color */
+  --black: #111111;
+
+  /* Define white background color */
+  --white: #ffffff;
+
+  /* Define spacing unit for consistent layout rhythm */
+  --space: 16px;
+}
+
+/* Reset default browser spacing and set box model behavior */
+* {
+  /* Remove default margin */
+  margin: 0;
+
+  /* Remove default padding */
+  padding: 0;
+
+  /* Include padding + border in element width calculations */
+  box-sizing: border-box;
+}
+
+/* Main page body styles */
+body {
+  /* Set font for entire page */
+  font-family: "Inter", sans-serif;
+
+  /* Set background color */
+  background-color: var(--white);
+
+  /* Set default text color */
+  color: var(--black);
+
+  /* Add spacing around entire page */
+  padding: 80px;
+
+  /* Set comfortable line spacing */
+  line-height: 1.5;
+}
+
+.container {
+  display: grid;
+
+  /* 12 equal columns */
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+
+  /* Separate horizontal and vertical spacing */
+  column-gap: 48px;
+  row-gap: 48px;
+
+  width: 100%;
+}
+
+/* Full-width section inside grid (spans all 12 columns) */
+.full {
+  /* Start at column 1 and span all 12 columns */
+  grid-column: 1 / span 12;
+}
+
+/* Half-width section (6 columns) */
+.half {
+  /* Span 6 out of 12 columns */
+  grid-column: span 6;
+}
+
+/* One-third width section (4 columns) */
+
+.left {
+    grid-column: 1 / span 4;
+}
+
+.center {
+    grid-column: 5 / span 4;
+}
+
+.right {
+    grid-column: 9 / span 4;
+}
+
+
+
+
+
+
+/* Typography: main title */
+h1 {
+  /* Set large type size for hierarchy */
+  font-size: clamp(36px, 5vw, 72px);
+
+  /* Make text bold */
+  font-weight: 600;
+
+  /* Reduce spacing between letters slightly for Swiss look */
+  letter-spacing: -0.02em;
+
+  /* Add space below heading */
+  margin-bottom: 20px;
+}
+
+/* Typography: subtitle */
+h2 {
+  /* Medium-large size */
+  font-size: clamp(22px, 2.5vw, 32px);
+
+  /* Normal weight */
+  font-weight: 400;
+
+  /* Add spacing below */
+  margin-bottom: 16px;
+
+  /* Subtle color hierarchy */
+  color: #444;
+}
+
+/* Typography: subtitle */
+h3 {
+  /* Medium-large size */
+  font-size: clamp(22px, 2.5vw, 32px);
+
+  /* Normal weight */
+  font-weight: 400;
+
+  /* Add spacing below */
+  margin-bottom: 16px;
+
+  /* Subtle color hierarchy */
+  color: #FF4500;
+}
+
+/* Body text styling */
+p {
+  /* Standard readable size */
+  font-size: clamp(16px, 1.1vw, 20px);
+
+  /* Comfortable line spacing */
+  line-height: 1.6;
+
+  /* Space below paragraphs */
+  margin-bottom: 24px;
+}
+
+a {
+
+  /* Standard readable size */
+  font-size: clamp(16px, 1.1vw, 20px);
+
+  /* Comfortable line spacing */
+  line-height: 1.6;
+
+  /* Space below paragraphs */
+  margin-bottom: 24px;
+
+  color: black;
+}
+
+.clean-link {
+  color: inherit;
+  text-decoration: none;
+}
+
