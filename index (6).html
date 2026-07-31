@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AXON — Point Cloud Scan Navigator</title>
+<meta name="description" content="AXON structural scan navigator" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="stage">
+    <canvas id="cloud" aria-hidden="true"></canvas>
+
+    <header class="masthead">
+      <div class="mark">AX<span>·</span>ON</div>
+      <div class="sub">STRUCTURAL SCAN&nbsp;/&nbsp;AXON-002 <span class="dot">●</span> LIVE<br/>39,481 PTS CAPTURED</div>
+    </header>
+
+    <div class="scanid">SCAN_ID // 2026-07-30 // AXON_STRUCTURE_02</div>
+    <div class="hint">SELECT A TARGET TO ENTER</div>
+
+    <div id="overlay" role="navigation" aria-label="Site sections"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
