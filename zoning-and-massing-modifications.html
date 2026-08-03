@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="styles/main.css" />
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css" rel="stylesheet" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
+<style>
+  /* this page scrolls past the fixed-viewport stage to reveal the image gallery below */
+  html, body { overflow: auto; }
+</style>
 </head>
 <body>
   <div class="stage light">
@@ -18,6 +22,25 @@
       <p class="info-placeholder">Click a building</p>
     </div>
   </div>
+
+  <section class="image-gallery">
+    <figure>
+      <img src="assets/new-zoning-map.png" alt="New zoning map" loading="lazy" />
+      <figcaption>New Zoning Map</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/main-map.png" alt="Main map" loading="lazy" />
+      <figcaption>Main Map</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/graph-sf.png" alt="Graph by square footage" loading="lazy" />
+      <figcaption>Graph by Square Footage</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/graph-buildings-by-neighborhood.png" alt="Graph of number of buildings by neighborhood" loading="lazy" />
+      <figcaption>Number of Buildings by Neighborhood</figcaption>
+    </figure>
+  </section>
 
   <script src="javascript/main.js"></script>
   <script>

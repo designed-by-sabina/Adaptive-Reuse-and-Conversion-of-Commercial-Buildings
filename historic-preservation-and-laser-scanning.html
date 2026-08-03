@@ -10,7 +10,146 @@
 <body>
   <div class="stage light">
     <a class="back-link" href="directions.html">&larr; Map</a>
-    <img class="bg" src="assets/page-historic-preservation.png" alt="Historic Preservation and 3D Laser Scanning" />
+    <img id="bg" class="bg" src="assets/page-historic-preservation.png" alt="Historic Preservation and 3D Laser Scanning" />
+    <div id="chart-window" class="map-window chart-window" data-l="0.03" data-t="0.05" data-r="0.34" data-b="0.95">
+      <h1 class="chart-title">Potentially Convertible Office Buildings by Neighborhood<span>Weighted to the citywide maximum of 427 buildings, broken down by construction era and landmark / historic-district status</span></h1>
+      <div id="pie-grid" class="pie-grid"></div>
+    </div>
+    <div id="detail-window" class="detail-window" data-l="0.36" data-t="0.05" data-r="0.75" data-b="0.95">
+      <div id="detail-view" class="detail-view">
+        <p class="detail-placeholder">Click a neighborhood to see its breakdown</p>
+      </div>
+      <div class="chart-legend">
+        <span><i style="background:#B7DDFD"></i>Pre-1961 Other</span>
+        <span><i style="background:#FFD2A9"></i>1961&ndash;1990 Other</span>
+        <span><i style="background:#FC9E41"></i>1961&ndash;1990 Landmark</span>
+        <span><i style="background:#73C0FF"></i>Pre-1961 Landmark</span>
+        <span><i class="legend-blank"></i>Below citywide maximum (427 buildings)</span>
+      </div>
+    </div>
   </div>
+
+  <script src="javascript/main.js"></script>
+  <script>
+    const bg = document.getElementById('bg');
+    const chartWindow = document.getElementById('chart-window');
+    const detailWindow = document.getElementById('detail-window');
+    fitHotspots(bg, [chartWindow, detailWindow].map((el) => ({
+      el,
+      rect: {
+        left: parseFloat(el.dataset.l),
+        top: parseFloat(el.dataset.t),
+        right: parseFloat(el.dataset.r),
+        bottom: parseFloat(el.dataset.b),
+      },
+    })));
+
+    const CITYWIDE_MAX = 427;
+    const COLORS = { pre61Other: '#B7DDFD', y6190Other: '#FFD2A9', y6190Landmark: '#FC9E41', pre61Landmark: '#73C0FF' };
+    const NEIGHBORHOODS = [
+      { name: 'Midtown-Times Square', pre61Landmark: 13.8, y6190Landmark: 1.4, y6190Other: 16.4, pre61Other: 68.4, total: 427 },
+      { name: 'Midtown South-Flatiron-Union Square', pre61Landmark: 3.4, y6190Landmark: 0.0, y6190Other: 1.7, pre61Other: 94.9, total: 356 },
+      { name: 'SoHo-Little Italy-Hudson Square', pre61Landmark: 2.6, y6190Landmark: 0.0, y6190Other: 2.1, pre61Other: 95.4, total: 194 },
+      { name: 'Tribeca-Civic Center', pre61Landmark: 15.4, y6190Landmark: 0.0, y6190Other: 7.7, pre61Other: 76.9, total: 117 },
+      { name: 'Financial District-Battery Park City', pre61Landmark: 18.9, y6190Landmark: 1.8, y6190Other: 22.5, pre61Other: 56.8, total: 111 },
+      { name: 'Chelsea-Hudson Yards', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 102 },
+      { name: 'East Midtown-Turtle Bay', pre61Landmark: 6.8, y6190Landmark: 2.3, y6190Other: 39.8, pre61Other: 51.1, total: 88 },
+      { name: 'Chinatown-Two Bridges', pre61Landmark: 1.3, y6190Landmark: 0.0, y6190Other: 5.1, pre61Other: 93.6, total: 78 },
+      { name: 'Greenwich Village', pre61Landmark: 16.9, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 83.1, total: 77 },
+      { name: 'Murray Hill-Kips Bay', pre61Landmark: 5.4, y6190Landmark: 1.8, y6190Other: 21.4, pre61Other: 71.4, total: 56 },
+      { name: 'Upper East Side-Carnegie Hill', pre61Landmark: 1.9, y6190Landmark: 0.0, y6190Other: 9.3, pre61Other: 88.9, total: 54 },
+      { name: 'Gramercy', pre61Landmark: 4.3, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 95.7, total: 47 },
+      { name: "Hell's Kitchen", pre61Landmark: 5.1, y6190Landmark: 0.0, y6190Other: 10.3, pre61Other: 84.6, total: 39 },
+      { name: 'West Village', pre61Landmark: 2.7, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 97.3, total: 37 },
+      { name: 'Lower East Side', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 9.1, pre61Other: 90.9, total: 22 },
+      { name: 'East Harlem (North)', pre61Landmark: 5.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 95.0, total: 20 },
+      { name: 'Harlem (South)', pre61Landmark: 5.3, y6190Landmark: 0.0, y6190Other: 26.3, pre61Other: 68.4, total: 19 },
+      { name: 'Upper West Side-Lincoln Square', pre61Landmark: 7.1, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 92.9, total: 14 },
+      { name: 'Manhattanville-West Harlem', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 23.1, pre61Other: 76.9, total: 13 },
+      { name: 'Upper East Side-Lenox Hill-Roosevelt Island', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 16.7, pre61Other: 83.3, total: 12 },
+      { name: 'Upper East Side-Yorkville', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 27.3, pre61Other: 72.7, total: 11 },
+      { name: 'Washington Heights (South)', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 6 },
+      { name: 'East Village', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 6 },
+      { name: 'Upper West Side (Central)', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 5 },
+      { name: 'Inwood', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 4 },
+      { name: 'Washington Heights (North)', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 2 },
+      { name: 'East Harlem (South)', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 2 },
+      { name: 'Harlem (North)', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 1 },
+      { name: 'The Battery-Governors Island-Ellis Island-Liberty Island', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 1 },
+    ];
+
+    const R = 15.9155;
+    const CIRC = 2 * Math.PI * R;
+
+    function arc(lengthPct, offsetPct, color, name, pct, cnt) {
+      const len = (lengthPct / 100) * CIRC;
+      return `<circle class="pie-seg" cx="50" cy="50" r="${R}" fill="none" stroke="${color}"
+        stroke-width="14" stroke-dasharray="${len} ${CIRC - len}" stroke-dashoffset="${-(offsetPct / 100) * CIRC}"
+        data-name="${name}" data-pct="${pct}" data-count="${cnt}">
+        <title>${name}: ${pct}% (${cnt} bldgs)</title>
+      </circle>`;
+    }
+
+    function count(pct, total) {
+      return Math.round((pct / 100) * total);
+    }
+
+    function donutMarkup(n, size, showTotal) {
+      const scale = n.total / CITYWIDE_MAX;
+      const lenD = n.pre61Other * scale;
+      const lenC = n.y6190Other * scale;
+      const lenB = n.y6190Landmark * scale;
+      const lenA = n.pre61Landmark * scale;
+      let cursor = 0;
+      const segs = [
+        [lenD, COLORS.pre61Other, 'Pre-1961 Other', n.pre61Other],
+        [lenC, COLORS.y6190Other, '1961–1990 Other', n.y6190Other],
+        [lenB, COLORS.y6190Landmark, '1961–1990 Landmark', n.y6190Landmark],
+        [lenA, COLORS.pre61Landmark, 'Pre-1961 Landmark', n.pre61Landmark],
+      ].map(([len, color, name, pct]) => {
+        const el = len > 0 ? arc(len, cursor, color, name, pct, count(pct, n.total)) : '';
+        cursor += len;
+        return el;
+      }).join('');
+      return `
+        <svg class="pie-chart" style="max-width:${size}px" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="${R}" fill="none" stroke="#E4E9F2" stroke-width="14"></circle>
+          <g transform="rotate(-90 50 50)">${segs}</g>
+          ${showTotal ? `<text x="50" y="50" class="pie-total" text-anchor="middle" dominant-baseline="central">${n.total}</text>` : ''}
+        </svg>`;
+    }
+
+    const detailView = document.getElementById('detail-view');
+    function showDetail(n, cellEl) {
+      document.querySelectorAll('.pie-cell.selected').forEach((el) => el.classList.remove('selected'));
+      if (cellEl) cellEl.classList.add('selected');
+      detailView.innerHTML = `
+        <div class="detail-donut">${donutMarkup(n, 460, false)}</div>
+        <h2 class="detail-name">${n.name}</h2>
+        <p class="detail-total">${count(n.pre61Landmark, n.total)} landmarked pre-1961 &middot; ${count(n.y6190Landmark, n.total)} landmarked 1961&ndash;1990</p>
+        <p id="segment-info" class="segment-info">Click a slice for its breakdown</p>`;
+    }
+
+    detailView.addEventListener('click', (e) => {
+      const seg = e.target.closest('.pie-seg');
+      if (!seg) return;
+      const info = document.getElementById('segment-info');
+      if (info) info.innerHTML = `<strong>${seg.dataset.name}</strong>: ${seg.dataset.pct}% &middot; ${seg.dataset.count} bldgs`;
+    });
+
+    const grid = document.getElementById('pie-grid');
+    grid.innerHTML = NEIGHBORHOODS.map((n, i) => `
+        <div class="pie-cell" data-index="${i}">
+          ${donutMarkup(n, 120, true)}
+          <div class="pie-label">${n.name}</div>
+          <div class="pie-landmarks">${count(n.pre61Landmark, n.total)} pre-1961 &middot; ${count(n.y6190Landmark, n.total)} 1961&ndash;1990 landmarked</div>
+        </div>`).join('');
+
+    grid.querySelectorAll('.pie-cell').forEach((cell) => {
+      cell.addEventListener('click', () => showDetail(NEIGHBORHOODS[+cell.dataset.index], cell));
+    });
+
+    showDetail(NEIGHBORHOODS[0], grid.querySelector('.pie-cell'));
+  </script>
 </body>
 </html>

@@ -6,11 +6,30 @@
 <title>Analyzing Existing Building Massing</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/main.css" />
+<style>
+  /* this page scrolls past the fixed-viewport stage to reveal the image gallery below */
+  html, body { overflow: auto; }
+</style>
 </head>
 <body>
   <div class="stage light">
     <a class="back-link" href="directions.html">&larr; Map</a>
     <img class="bg" src="assets/page-massing.png" alt="Analyzing Existing Building Massing" />
   </div>
+
+  <section class="image-gallery">
+    <figure>
+      <img src="assets/massing-work.png" alt="Grasshopper massing-generation definition" loading="lazy" />
+      <figcaption>Grasshopper Definition</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/massing-output.png" alt="Design logic notes for core and floor plate rules" loading="lazy" />
+      <figcaption>Design Logic Notes</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/massing-work-2.png" alt="Massing model wireframe with floor plate analysis" loading="lazy" />
+      <figcaption>Massing Model &mdash; Floor Plate Analysis</figcaption>
+    </figure>
+  </section>
 </body>
 </html>
