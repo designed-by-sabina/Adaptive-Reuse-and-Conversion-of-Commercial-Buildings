@@ -71,6 +71,58 @@ a.cover-link {
   z-index: 2;
 }
 
+/* building info card, layered above the map window it overlaps */
+.info-window {
+  z-index: 3;
+  padding: 0.9em 1.1em;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #013984;
+}
+
+.info-window .info-placeholder {
+  margin: 0;
+  color: #99a8c2;
+}
+
+.info-window .info-address {
+  margin: 0 0 0.5em;
+  font-size: 15px;
+  font-weight: 600;
+  color: #013984;
+}
+
+.info-window .info-fields {
+  margin: 0;
+}
+
+.info-window .info-fields dt {
+  margin-top: 0.5em;
+  color: #6a7891;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.info-window .info-fields dt:first-child {
+  margin-top: 0;
+}
+
+.info-window .info-fields dd {
+  margin: 0;
+  color: #013984;
+  font-weight: 500;
+}
+
+.info-window .info-note {
+  margin: 0.7em 0 0;
+  padding-top: 0.6em;
+  border-top: 1px solid #d8e0ee;
+  color: #ff6401;
+  font-size: 12px;
+}
+
 /* back button used on the three content pages */
 .back-link {
   position: absolute;

@@ -14,21 +14,25 @@
     <a class="back-link" href="directions.html">&larr; Map</a>
     <img id="bg" class="bg" src="assets/page-zoning.png" alt="NYC Zoning Regulations & City of Yes Housing Opportunity and Proposing Building Massing Modifications" />
     <div id="map" class="map-window" data-l="0.06" data-t="0.12" data-r="0.50" data-b="0.62"></div>
+    <div id="building-info" class="map-window info-window" data-l="0.38" data-t="0.46" data-r="0.58" data-b="0.98">
+      <p class="info-placeholder">Click a building</p>
+    </div>
   </div>
 
   <script src="javascript/main.js"></script>
   <script>
     const bg = document.getElementById('bg');
     const mapEl = document.getElementById('map');
-    fitHotspots(bg, [{
-      el: mapEl,
+    const infoEl = document.getElementById('building-info');
+    fitHotspots(bg, [mapEl, infoEl].map((el) => ({
+      el,
       rect: {
-        left: parseFloat(mapEl.dataset.l),
-        top: parseFloat(mapEl.dataset.t),
-        right: parseFloat(mapEl.dataset.r),
-        bottom: parseFloat(mapEl.dataset.b),
+        left: parseFloat(el.dataset.l),
+        top: parseFloat(el.dataset.t),
+        right: parseFloat(el.dataset.r),
+        bottom: parseFloat(el.dataset.b),
       },
-    }]);
+    })));
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGVzaWduZWQtYnktc2FiaW5hIiwiYSI6ImNtcnd5bjRoeDBiNGQyem82ZmZsMTZhMTEifQ.gj1Zqa5BSsdGchHXR2bKZA';
     const map = new mapboxgl.Map({
@@ -40,6 +44,45 @@
       pitch: 63,
     });
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    const BUILDING_LAYER = '303395cb628d8e339a4e';
+
+    function sqft(n) {
+      return n ? Math.round(n).toLocaleString() + ' sq ft' : '—';
+    }
+
+    function showBuildingInfo(feature) {
+      const p = feature.properties;
+      const far = p.BldgArea && p.LotArea ? (p.BldgArea / p.LotArea).toFixed(2) : '—';
+      infoEl.innerHTML = `
+        <p class="info-address">${p.Address || 'Unknown address'}</p>
+        <dl class="info-fields">
+          <dt>Zoning district</dt><dd>${p.zone_dist || '—'}</dd>
+          <dt>Historic district</dt><dd>${p.HistDist || '—'}</dd>
+          <dt>Landmark status</dt><dd>${p.HistDist ? 'Landmarked' : 'Not landmarked'}</dd>
+          <dt>Building class</dt><dd>${p.BldgClass || '—'}</dd>
+          <dt>Year built</dt><dd>${p.YearBuilt || '—'}</dd>
+          ${p.YearAlter1 ? `<dt>Year altered (1)</dt><dd>${p.YearAlter1}</dd>` : ''}
+          ${p.YearAlter2 ? `<dt>Year altered (2)</dt><dd>${p.YearAlter2}</dd>` : ''}
+          <dt>Floors</dt><dd>${p.NumFloors || '—'}</dd>
+          <dt>Height</dt><dd>${p.height_ft ? Math.round(p.height_ft) + ' ft' : '—'}</dd>
+          <dt>Total building area</dt><dd>${sqft(p.BldgArea)}</dd>
+          <dt>Office area</dt><dd>${sqft(p.OfficeArea)}</dd>
+          <dt>FAR</dt><dd>${far}</dd>
+        </dl>
+        ${p.category_label ? `<p class="info-note">${p.category_label}</p>` : ''}
+      `;
+    }
+
+    map.on('click', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: [BUILDING_LAYER] });
+      if (features.length) showBuildingInfo(features[0]);
+    });
+
+    map.on('mousemove', (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: [BUILDING_LAYER] });
+      map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+    });
   </script>
 </body>
 </html>
