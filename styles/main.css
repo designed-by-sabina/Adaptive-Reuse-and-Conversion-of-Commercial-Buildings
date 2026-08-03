@@ -246,20 +246,28 @@ a.cover-link {
   filter: drop-shadow(0 2px 4px rgba(1, 57, 132, 0.18));
 }
 
-.detail-outof {
-  margin: 0.6em 0 0.15em;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 22px;
+.detail-name {
+  margin: 0.5em 0 0.1em;
+  font-size: 14px;
   font-weight: 600;
   color: #013984;
   text-align: center;
 }
 
-.detail-name {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
+.detail-total {
+  margin: 0 0 0.6em;
+  font-size: 11px;
   color: #6a7891;
+  text-align: center;
+}
+
+.segment-info {
+  margin: 0;
+  padding-top: 0.6em;
+  border-top: 1px solid #d8e0ee;
+  min-height: 1.4em;
+  font-size: 12px;
+  color: #013984;
   text-align: center;
 }
 

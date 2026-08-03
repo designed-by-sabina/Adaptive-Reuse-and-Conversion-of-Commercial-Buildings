@@ -12,7 +12,7 @@
     <a class="back-link" href="directions.html">&larr; Map</a>
     <img id="bg" class="bg" src="assets/page-historic-preservation.png" alt="Historic Preservation and 3D Laser Scanning" />
     <div id="chart-window" class="map-window chart-window" data-l="0.03" data-t="0.05" data-r="0.34" data-b="0.95">
-      <h1 class="chart-title">Landmark &amp; Historic-District Status by Neighborhood<span>Weighted to the citywide maximum of 427 buildings, broken down by construction era and landmark / historic-district status</span></h1>
+      <h1 class="chart-title">Potentially Convertible Office Buildings by Neighborhood<span>Weighted to the citywide maximum of 427 buildings, broken down by construction era and landmark / historic-district status</span></h1>
       <div id="pie-grid" class="pie-grid"></div>
     </div>
     <div id="detail-window" class="detail-window" data-l="0.36" data-t="0.05" data-r="0.75" data-b="0.95">
@@ -94,10 +94,6 @@
       return Math.round((pct / 100) * total);
     }
 
-    function landmarksTotal(n) {
-      return count(n.pre61Landmark, n.total) + count(n.y6190Landmark, n.total);
-    }
-
     function donutMarkup(n, size, showTotal) {
       const scale = n.total / CITYWIDE_MAX;
       const lenD = n.pre61Other * scale;
@@ -119,7 +115,7 @@
         <svg class="pie-chart" style="max-width:${size}px" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="${R}" fill="none" stroke="#E4E9F2" stroke-width="14"></circle>
           <g transform="rotate(-90 50 50)">${segs}</g>
-          ${showTotal ? `<text x="50" y="50" class="pie-total" text-anchor="middle" dominant-baseline="central">${landmarksTotal(n)}</text>` : ''}
+          ${showTotal ? `<text x="50" y="50" class="pie-total" text-anchor="middle" dominant-baseline="central">${n.total}</text>` : ''}
         </svg>`;
     }
 
@@ -129,9 +125,17 @@
       if (cellEl) cellEl.classList.add('selected');
       detailView.innerHTML = `
         <div class="detail-donut">${donutMarkup(n, 460, false)}</div>
-        <p class="detail-outof">OUT OF ${n.total}</p>
-        <h2 class="detail-name">${n.name}</h2>`;
+        <h2 class="detail-name">${n.name}</h2>
+        <p class="detail-total">${count(n.pre61Landmark, n.total)} landmarked pre-1961 &middot; ${count(n.y6190Landmark, n.total)} landmarked 1961&ndash;1990</p>
+        <p id="segment-info" class="segment-info">Click a slice for its breakdown</p>`;
     }
+
+    detailView.addEventListener('click', (e) => {
+      const seg = e.target.closest('.pie-seg');
+      if (!seg) return;
+      const info = document.getElementById('segment-info');
+      if (info) info.innerHTML = `<strong>${seg.dataset.name}</strong>: ${seg.dataset.pct}% &middot; ${seg.dataset.count} bldgs`;
+    });
 
     const grid = document.getElementById('pie-grid');
     grid.innerHTML = NEIGHBORHOODS.map((n, i) => `
