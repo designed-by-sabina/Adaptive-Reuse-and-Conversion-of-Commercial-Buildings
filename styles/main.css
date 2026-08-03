@@ -1,0 +1,89 @@
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #013984;
+}
+
+.stage.light {
+  background: #ffffff;
+}
+
+.stage img.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* cover page: whole screen is a link */
+a.cover-link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: pointer;
+}
+
+/* highlighter-style links over individual text lines on the directions page */
+.mark {
+  position: absolute;
+  border-radius: 2px;
+  background: rgba(90, 190, 250, 0);
+  mix-blend-mode: multiply;
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.mark:hover,
+.mark:focus-visible {
+  background: rgba(90, 190, 250, 0.65);
+}
+
+/* back button used on the three content pages */
+.back-link {
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.55em 1.1em;
+  background: #013984;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  z-index: 5;
+}
+
+.back-link:hover {
+  background: #ff6401;
+}
+
+/* cover back-link on the map page: white on white, barely visible until hovered */
+.back-link.to-cover {
+  background: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.back-link.to-cover:hover,
+.back-link.to-cover:focus-visible {
+  background: #ffffff;
+  color: #013984;
+}
