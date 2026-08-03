@@ -38,19 +38,37 @@ a.cover-link {
   cursor: pointer;
 }
 
+/* Wraps all the line-hotspots belonging to one title so they highlight as a
+   single unit. Children paint fully opaque so overlapping line-boxes don't
+   double up; the group's own opacity (composited once, as a whole) is what
+   fades the highlight in/out, avoiding a darker seam where lines overlap. */
+.mark-group {
+  isolation: isolate;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.mark-group.group-hover {
+  opacity: 0.65;
+}
+
 /* highlighter-style links over individual text lines on the directions page */
 .mark {
   position: absolute;
   border-radius: 2px;
-  background: rgba(90, 190, 250, 0);
-  mix-blend-mode: multiply;
-  transition: background 0.15s ease;
+  background: rgb(90, 190, 250);
   cursor: pointer;
 }
 
-.mark:hover,
-.mark:focus-visible {
-  background: rgba(90, 190, 250, 0.65);
+/* live Mapbox window framed on top of the background diagram */
+.map-window {
+  position: absolute;
+  border: 3px solid #013984;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #ffffff;
+  z-index: 2;
 }
 
 /* back button used on the three content pages */

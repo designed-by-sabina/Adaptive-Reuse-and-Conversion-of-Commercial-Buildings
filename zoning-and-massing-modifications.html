@@ -6,11 +6,40 @@
 <title>NYC Zoning Regulations &amp; City of Yes Housing Opportunity</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/main.css" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
 </head>
 <body>
   <div class="stage light">
     <a class="back-link" href="directions.html">&larr; Map</a>
-    <img class="bg" src="assets/page-zoning.png" alt="NYC Zoning Regulations & City of Yes Housing Opportunity and Proposing Building Massing Modifications" />
+    <img id="bg" class="bg" src="assets/page-zoning.png" alt="NYC Zoning Regulations & City of Yes Housing Opportunity and Proposing Building Massing Modifications" />
+    <div id="map" class="map-window" data-l="0.06" data-t="0.12" data-r="0.50" data-b="0.62"></div>
   </div>
+
+  <script src="javascript/main.js"></script>
+  <script>
+    const bg = document.getElementById('bg');
+    const mapEl = document.getElementById('map');
+    fitHotspots(bg, [{
+      el: mapEl,
+      rect: {
+        left: parseFloat(mapEl.dataset.l),
+        top: parseFloat(mapEl.dataset.t),
+        right: parseFloat(mapEl.dataset.r),
+        bottom: parseFloat(mapEl.dataset.b),
+      },
+    }]);
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGVzaWduZWQtYnktc2FiaW5hIiwiYSI6ImNtcnd5bjRoeDBiNGQyem82ZmZsMTZhMTEifQ.gj1Zqa5BSsdGchHXR2bKZA';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/designed-by-sabina/cmscpx2bn001n01s937qx8v2j',
+      center: [-73.99827, 40.72224],
+      zoom: 13.31,
+      bearing: -19.2,
+      pitch: 63,
+    });
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+  </script>
 </body>
 </html>
