@@ -15,42 +15,47 @@
 </head>
 <body>
   <div class="stage light">
-    <a class="back-link action-mark-host" href="directions.html">
+    <a class="back-link action-mark-host" href="zoning-overview.html">
       <span class="action-mark-group"><span class="action-mark"></span></span>
-      <span class="action-mark-text">&larr; Map</span>
+      <span class="action-mark-text">&larr; Back</span>
+    </a>
+    <a class="next-link action-mark-host" href="directions.html">
+      <span class="action-mark-group"><span class="action-mark"></span></span>
+      <span class="action-mark-text">Map</span>
     </a>
     <img id="bg" class="bg" src="assets/page-zoning.png" alt="NYC Zoning Regulations & City of Yes Housing Opportunity and Proposing Building Massing Modifications" />
-    <div id="map" class="map-window" data-l="0.06" data-t="0.12" data-r="0.50" data-b="0.62"></div>
-    <div id="building-info" class="map-window info-window" data-l="0.38" data-t="0.46" data-r="0.58" data-b="0.98">
+    <div id="map" class="map-window" data-l="0.16" data-t="0.12" data-r="0.60" data-b="0.62"></div>
+    <div id="building-info" class="map-window info-window" data-l="0.48" data-t="0.46" data-r="0.68" data-b="0.98">
       <p class="info-placeholder">Click a building</p>
+    </div>
+    <div id="legend" class="legend-panel" data-l="0.11" data-t="0.64" data-r="0.41" data-b="0.99">
+      <div class="legend-row">
+        <i style="background:#4E8EC2"></i>
+        <span>Pre-1961 office buildings in Original Zoning districts allowing Conversion</span>
+      </div>
+      <div class="legend-row">
+        <i style="background:#EE4217"></i>
+        <span>1961&ndash;1990 office buildings in Original Zoning districts, eligible for conversion since the passing of City of Yes, December 2024</span>
+      </div>
+      <div class="legend-row">
+        <i style="background:#FF9100"></i>
+        <span>Pre-1961 office buildings in Additional Zoning districts, eligible for conversion since the passing of City of Yes, December 2024</span>
+      </div>
+      <div class="legend-row">
+        <i style="background:#FF6600"></i>
+        <span>1961&ndash;1990 office buildings in Additional Zoning districts, eligible for conversion since the passing of City of Yes, December 2024</span>
+      </div>
     </div>
   </div>
 
-  <section class="image-gallery">
-    <figure>
-      <img src="assets/new-zoning-map.png" alt="New zoning map" loading="lazy" />
-      <figcaption>New Zoning Map</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/main-map.png" alt="Main map" loading="lazy" />
-      <figcaption>Main Map</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/graph-sf.png" alt="Graph by square footage" loading="lazy" />
-      <figcaption>Graph by Square Footage</figcaption>
-    </figure>
-    <figure>
-      <img src="assets/graph-buildings-by-neighborhood.png" alt="Graph of number of buildings by neighborhood" loading="lazy" />
-      <figcaption>Number of Buildings by Neighborhood</figcaption>
-    </figure>
-  </section>
 
   <script src="javascript/main.js"></script>
   <script>
     const bg = document.getElementById('bg');
     const mapEl = document.getElementById('map');
     const infoEl = document.getElementById('building-info');
-    fitHotspots(bg, [mapEl, infoEl].map((el) => ({
+    const legendEl = document.getElementById('legend');
+    fitHotspots(bg, [mapEl, infoEl, legendEl].map((el) => ({
       el,
       rect: {
         left: parseFloat(el.dataset.l),
