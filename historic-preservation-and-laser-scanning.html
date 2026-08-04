@@ -9,22 +9,23 @@
 </head>
 <body>
   <div class="stage light">
-    <a class="back-link" href="directions.html">&larr; Map</a>
+    <a class="back-link action-mark-host" href="directions.html">
+      <span class="action-mark-group"><span class="action-mark"></span></span>
+      <span class="action-mark-text">&larr; Map</span>
+    </a>
     <img id="bg" class="bg" src="assets/page-historic-preservation.png" alt="Historic Preservation and 3D Laser Scanning" />
     <div id="chart-window" class="map-window chart-window" data-l="0.03" data-t="0.05" data-r="0.34" data-b="0.95">
-      <h1 class="chart-title">Potentially Convertible Office Buildings by Neighborhood<span>Weighted to the citywide maximum of 427 buildings, broken down by construction era and landmark / historic-district status</span></h1>
-      <div id="pie-grid" class="pie-grid"></div>
+      <div class="chart-window-inner">
+        <h1 class="chart-title">Number of Landmarks out of<br>
+          Potentially Convertible Office Buildings by Neighborhood</h1>
+          <p class="chart-subtitle">Pie charts are weighted to the citywide maximum of 427 buildings, broken down by landmark status and construction era</p>
+        <div id="pie-grid" class="pie-grid"></div>
+      </div>
     </div>
     <div id="detail-window" class="detail-window" data-l="0.36" data-t="0.05" data-r="0.75" data-b="0.95">
       <div id="detail-view" class="detail-view">
         <p class="detail-placeholder">Click a neighborhood to see its breakdown</p>
-      </div>
-      <div class="chart-legend">
-        <span><i style="background:#B7DDFD"></i>Pre-1961 Other</span>
-        <span><i style="background:#FFD2A9"></i>1961&ndash;1990 Other</span>
-        <span><i style="background:#FC9E41"></i>1961&ndash;1990 Landmark</span>
-        <span><i style="background:#73C0FF"></i>Pre-1961 Landmark</span>
-        <span><i class="legend-blank"></i>Below citywide maximum (427 buildings)</span>
+        <div id="chart-legend" class="chart-legend"></div>
       </div>
     </div>
   </div>
@@ -78,7 +79,7 @@
       { name: 'The Battery-Governors Island-Ellis Island-Liberty Island', pre61Landmark: 0.0, y6190Landmark: 0.0, y6190Other: 0.0, pre61Other: 100.0, total: 1 },
     ];
 
-    const R = 15.9155;
+    const R = 35;
     const CIRC = 2 * Math.PI * R;
 
     function arc(lengthPct, offsetPct, color, name, pct, cnt) {
@@ -90,62 +91,170 @@
       </circle>`;
     }
 
+    // kept small enough that the 1.08x "exploded" scale (see .pie-seg.exploded)
+    // never pushes a wedge past the svg's own 100x100 viewBox — an ancestor
+    // (.detail-view) has overflow-y:auto, which per the CSS overflow spec
+    // forces its overflow-x to compute as auto too, clipping anything that
+    // relies on `overflow: visible` to bleed past its own box.
+    const PIE_R = 45;
+    function polarPoint(angleDeg) {
+      // no -90 shift here: wedge() output is wrapped in the same
+      // `rotate(-90 50 50)` group as the ring arcs, which already
+      // rotates the start point from 3 o'clock to 12 o'clock.
+      const a = angleDeg * Math.PI / 180;
+      return { x: 50 + PIE_R * Math.cos(a), y: 50 + PIE_R * Math.sin(a) };
+    }
+
+    function wedge(lengthPct, offsetPct, color, name, pct, cnt) {
+      if (lengthPct <= 0) return '';
+      const startAngle = (offsetPct / 100) * 360;
+      const endAngle = ((offsetPct + lengthPct) / 100) * 360;
+      const start = polarPoint(startAngle);
+      const end = polarPoint(endAngle);
+      const largeArc = endAngle - startAngle > 180 ? 1 : 0;
+      const d = `M 50 50 L ${start.x} ${start.y} A ${PIE_R} ${PIE_R} 0 ${largeArc} 1 ${end.x} ${end.y} Z`;
+      return `<path class="pie-seg pie-wedge" d="${d}" fill="${color}" stroke="#013984" stroke-width="0.5"
+        data-name="${name}" data-pct="${pct}" data-count="${cnt}">
+        <title>${name}: ${pct}% (${cnt} bldgs)</title>
+      </path>`;
+    }
+
     function count(pct, total) {
       return Math.round((pct / 100) * total);
     }
 
-    function donutMarkup(n, size, showTotal) {
+    function landmarksTotal(n) {
+      return count(n.pre61Landmark, n.total) + count(n.y6190Landmark, n.total);
+    }
+
+    function donutMarkup(n, size, showTotal, asPie) {
       const scale = n.total / CITYWIDE_MAX;
       const lenD = n.pre61Other * scale;
       const lenC = n.y6190Other * scale;
       const lenB = n.y6190Landmark * scale;
       const lenA = n.pre61Landmark * scale;
       let cursor = 0;
-      const segs = [
+      const parts = [
         [lenD, COLORS.pre61Other, 'Pre-1961 Other', n.pre61Other],
         [lenC, COLORS.y6190Other, '1961–1990 Other', n.y6190Other],
         [lenB, COLORS.y6190Landmark, '1961–1990 Landmark', n.y6190Landmark],
         [lenA, COLORS.pre61Landmark, 'Pre-1961 Landmark', n.pre61Landmark],
-      ].map(([len, color, name, pct]) => {
-        const el = len > 0 ? arc(len, cursor, color, name, pct, count(pct, n.total)) : '';
+      ];
+      const segs = parts.map(([len, color, name, pct]) => {
+        const el = asPie
+          ? wedge(len, cursor, color, name, pct, count(pct, n.total))
+          : (len > 0 ? arc(len, cursor, color, name, pct, count(pct, n.total)) : '');
         cursor += len;
         return el;
       }).join('');
+      const background = asPie
+        ? '<circle cx="50" cy="50" r="' + PIE_R + '" fill="none" stroke="#013984" stroke-width="0.5"></circle>'
+        : '<circle cx="50" cy="50" r="' + R + '" fill="none" stroke="#ffffff" stroke-width="14"></circle>';
       return `
-        <svg class="pie-chart" style="max-width:${size}px" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="${R}" fill="none" stroke="#E4E9F2" stroke-width="14"></circle>
-          <g transform="rotate(-90 50 50)">${segs}</g>
-          ${showTotal ? `<text x="50" y="50" class="pie-total" text-anchor="middle" dominant-baseline="central">${n.total}</text>` : ''}
-        </svg>`;
+        <div class="pie-chart-wrap" style="max-width:${size}px">
+          <svg class="pie-chart" style="max-width:${size}px" viewBox="0 0 100 100">
+            ${background}
+            <g transform="rotate(-90 50 50)">${segs}</g>
+            ${showTotal ? `<text x="50" y="50" class="pie-total" text-anchor="middle" dominant-baseline="central">${landmarksTotal(n)}</text>` : ''}
+          </svg>
+        </div>`;
+    }
+
+    function setCellHighlighted(cell, on) {
+      cell.querySelectorAll('.pie-mark-group').forEach((g) => g.classList.toggle('group-hover', on));
+    }
+
+    function totalRowMarkup(n) {
+      return `
+        <div class="legend-total-block">
+          <div class="legend-total-line pie-mark-host">
+            <span class="pie-mark-group"></span>
+            <span class="pie-mark-text">Total Number of Potentially Convertible Office Buildings &mdash; ${n.total}</span>
+          </div>
+          <div class="legend-total-line pie-mark-host">
+            <span class="pie-mark-group"></span>
+            <span class="pie-mark-text">Total number of Landmark Buildings &mdash; ${landmarksTotal(n)}</span>
+          </div>
+        </div>`;
+    }
+
+    function legendMarkup(n) {
+      const rows = [
+        ['Pre-1961 Landmark', COLORS.pre61Landmark, 'Landmark Built Pre-1961', count(n.pre61Landmark, n.total)],
+        ['1961–1990 Landmark', COLORS.y6190Landmark, 'Landmark Built 1961–1990', count(n.y6190Landmark, n.total)],
+        ['Pre-1961 Other', COLORS.pre61Other, 'Built Pre-1961 (No Landmark Status)', count(n.pre61Other, n.total)],
+        ['1961–1990 Other', COLORS.y6190Other, 'Built 1961–1990 (No Landmark Status)', count(n.y6190Other, n.total)],
+      ];
+      return rows.map(([name, color, title, cnt], i) => `
+        <div class="legend-row${i === 1 ? ' legend-row-break' : ''}" data-name="${name}">
+          <i style="background:${color}"></i>
+          <span class="legend-text pie-mark-host">
+            <span class="pie-mark-group"></span>
+            <span class="pie-mark-text">${title} &mdash; ${cnt}</span>
+          </span>
+        </div>`).join('');
     }
 
     const detailView = document.getElementById('detail-view');
     function showDetail(n, cellEl) {
-      document.querySelectorAll('.pie-cell.selected').forEach((el) => el.classList.remove('selected'));
-      if (cellEl) cellEl.classList.add('selected');
+      document.querySelectorAll('.pie-cell.selected').forEach((el) => {
+        el.classList.remove('selected');
+        setCellHighlighted(el, el.matches(':hover'));
+      });
+      if (cellEl) {
+        cellEl.classList.add('selected');
+        setCellHighlighted(cellEl, true);
+      }
       detailView.innerHTML = `
-        <div class="detail-donut">${donutMarkup(n, 460, false)}</div>
+        <div class="detail-donut">${donutMarkup(n, 368, false, true)}</div>
         <h2 class="detail-name">${n.name}</h2>
-        <p class="detail-total">${count(n.pre61Landmark, n.total)} landmarked pre-1961 &middot; ${count(n.y6190Landmark, n.total)} landmarked 1961&ndash;1990</p>
-        <p id="segment-info" class="segment-info">Click a slice for its breakdown</p>`;
+        ${totalRowMarkup(n)}
+        <div id="chart-legend" class="chart-legend">${legendMarkup(n)}</div>`;
+      detailView.querySelectorAll('.pie-mark-host').forEach(buildTextMarks);
     }
 
     detailView.addEventListener('click', (e) => {
       const seg = e.target.closest('.pie-seg');
       if (!seg) return;
-      const info = document.getElementById('segment-info');
-      if (info) info.innerHTML = `<strong>${seg.dataset.name}</strong>: ${seg.dataset.pct}% &middot; ${seg.dataset.count} bldgs`;
+      detailView.querySelectorAll('.pie-seg.exploded').forEach((s) => s.classList.remove('exploded'));
+      seg.classList.add('exploded');
+      detailView.querySelectorAll('.legend-row').forEach((row) => {
+        const on = row.dataset.name === seg.dataset.name;
+        row.querySelectorAll('.pie-mark-group').forEach((g) => g.classList.toggle('group-hover', on));
+      });
     });
 
     const grid = document.getElementById('pie-grid');
     grid.innerHTML = NEIGHBORHOODS.map((n, i) => `
         <div class="pie-cell" data-index="${i}">
-          ${donutMarkup(n, 120, true)}
-          <div class="pie-label">${n.name}</div>
-          <div class="pie-landmarks">${count(n.pre61Landmark, n.total)} pre-1961 &middot; ${count(n.y6190Landmark, n.total)} 1961&ndash;1990 landmarked</div>
+          ${donutMarkup(n, 160, true)}
+          <div class="pie-caption">
+            <div class="pie-label pie-mark-host"><div class="pie-mark-group"></div><span class="pie-mark-text">${n.name}</span></div>
+            <div class="pie-landmarks pie-mark-host"><div class="pie-mark-group"></div><span class="pie-mark-text">out of ${n.total}</span></div>
+          </div>
         </div>`).join('');
 
+    function buildTextMarks(host) {
+      const target = host.querySelector('.pie-mark-text');
+      const group = host.querySelector('.pie-mark-group');
+      const range = document.createRange();
+      range.selectNodeContents(target);
+      const groupRect = group.getBoundingClientRect();
+      Array.from(range.getClientRects()).forEach((r) => {
+        const mark = document.createElement('div');
+        mark.className = 'pie-mark';
+        mark.style.left = (r.left - groupRect.left) + 'px';
+        mark.style.top = (r.top - groupRect.top) + 'px';
+        mark.style.width = r.width + 'px';
+        mark.style.height = r.height + 'px';
+        group.appendChild(mark);
+      });
+    }
+    grid.querySelectorAll('.pie-mark-host').forEach(buildTextMarks);
+
     grid.querySelectorAll('.pie-cell').forEach((cell) => {
+      cell.addEventListener('mouseenter', () => setCellHighlighted(cell, true));
+      cell.addEventListener('mouseleave', () => setCellHighlighted(cell, cell.classList.contains('selected')));
       cell.addEventListener('click', () => showDetail(NEIGHBORHOODS[+cell.dataset.index], cell));
     });
 

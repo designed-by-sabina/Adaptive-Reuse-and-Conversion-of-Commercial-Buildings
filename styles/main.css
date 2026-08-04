@@ -38,6 +38,55 @@ a.cover-link {
   cursor: pointer;
 }
 
+.next-link {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #ff6401;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* same isolate + multiply-blend highlighter technique as .mark-group, applied
+   as a single rect behind the whole element — for actionable links/buttons
+   (things that cause navigation), so hover feedback stays consistent with
+   the text-highlighting used elsewhere on the site. Relies on the host
+   already being a positioned element (.back-link/.next-link both are) so it
+   doesn't need to set `position` itself and risk overriding theirs. */
+.action-mark-group {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.action-mark-host:hover .action-mark-group,
+.action-mark-host:focus-visible .action-mark-group {
+  opacity: 0.65;
+}
+
+.action-mark {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgb(90, 190, 250);
+}
+
+.action-mark-text {
+  position: relative;
+}
+
 /* Wraps all the line-hotspots belonging to one title so they highlight as a
    single unit. Children paint fully opaque so overlapping line-boxes don't
    double up; the group's own opacity (composited once, as a whole) is what
@@ -126,7 +175,28 @@ a.cover-link {
 /* data-viz panel on the historic preservation page */
 .chart-window {
   overflow-y: auto;
-  padding: 1.6em 1.4em 2em;
+  padding: 1.6em 1.4em 2em 0;
+  background: transparent;
+  direction: rtl;
+  scrollbar-color: #013984 transparent;
+}
+
+.chart-window::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chart-window::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chart-window::-webkit-scrollbar-thumb {
+  background: #013984;
+  border-radius: 5px;
+}
+
+.chart-window-inner {
+  padding-left: 1.4em;
+  direction: ltr;
 }
 
 .chart-title {
@@ -135,6 +205,16 @@ a.cover-link {
   font-weight: 600;
   color: #013984;
   text-align: center;
+}
+
+.chart-title span.chart-eyebrow {
+  display: block;
+  margin: 0 0 0.3em;
+  font-size: 11px;
+  font-weight: 400;
+  color: #013984;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .chart-title span {
@@ -147,17 +227,25 @@ a.cover-link {
   letter-spacing: 0.04em;
 }
 
+.chart-subtitle {
+  margin: 0 0 1.4em;
+  font-size: 11px;
+  font-weight: 400;
+  color: #6a7891;
+  text-align: center;
+}
+
 .pie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
-  gap: 1.4em 0.5em;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1.6em 0.5em;
 }
 
 .pie-cell {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4em;
+  gap: 0;
   cursor: pointer;
   border-radius: 6px;
   transition: transform 0.15s ease;
@@ -171,33 +259,75 @@ a.cover-link {
   font-size: 9.5px;
   line-height: 1.3;
   text-align: center;
-  color: #6a7891;
+  color: #000000;
 }
 
-.pie-cell.selected .pie-chart {
-  outline: 2px solid #ff6401;
-  outline-offset: 3px;
-  border-radius: 50%;
+.pie-chart-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 160px;
+}
+
+/* same highlighter technique as .mark-group/.mark on the directions page:
+   the marks live in their own isolated, multiply-blended layer behind the
+   text, instead of image content, so text stays fully legible on top */
+.pie-mark-host {
+  position: relative;
+}
+
+.pie-mark-group {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.pie-mark-group.group-hover {
+  opacity: 0.65;
+}
+
+.pie-mark {
+  position: absolute;
+  border-radius: 2px;
+  background: rgb(90, 190, 250);
+}
+
+.pie-mark-text {
+  position: relative;
 }
 
 .pie-chart {
   width: 100%;
-  max-width: 120px;
+  max-width: 160px;
+  overflow: visible;
   filter: drop-shadow(0 1px 2px rgba(1, 57, 132, 0.15));
 }
 
 .pie-seg {
-  transition: stroke-width 0.15s ease, filter 0.15s ease;
+  transition: stroke-width 0.15s ease, filter 0.15s ease, transform 0.15s ease;
+  transform-box: view-box;
+  transform-origin: 50px 50px;
+  cursor: pointer;
 }
 
 .pie-cell:hover .pie-seg {
   stroke-width: 16;
-  filter: drop-shadow(0 0 3px rgba(255, 100, 1, 0.55));
+}
+
+.pie-wedge {
+  opacity: 0.82;
+}
+
+.pie-seg.exploded {
+  transform: scale(1.08);
 }
 
 .pie-total {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 600;
   fill: #013984;
 }
@@ -227,6 +357,11 @@ a.cover-link {
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.detail-view::-webkit-scrollbar {
+  display: none;
 }
 
 .detail-placeholder {
@@ -248,7 +383,7 @@ a.cover-link {
 
 .detail-name {
   margin: 0.5em 0 0.1em;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
   color: #013984;
   text-align: center;
@@ -271,42 +406,51 @@ a.cover-link {
   text-align: center;
 }
 
-.detail-donut .pie-seg {
-  cursor: pointer;
-  transition: stroke-width 0.15s ease;
-}
-
-.detail-donut .pie-seg:hover {
-  stroke-width: 17;
-}
-
 .chart-legend {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4em 0.9em;
-  margin-top: 1em;
-  padding-top: 1em;
-  border-top: 1px solid #d8e0ee;
-  font-size: 10.5px;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55em;
+  font-size: 11px;
   color: #013984;
 }
 
-.chart-legend span {
-  display: inline-flex;
+.legend-row {
+  display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.6em;
 }
 
-.chart-legend i {
+.legend-row-break {
+  margin-bottom: 0.55em;
+  padding-bottom: 1.1em;
+  border-bottom: 1px solid #d8e0ee;
+}
+
+.legend-total-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  margin-top: 0.2em;
+  margin-bottom: 1.2em;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+  border-top: 1px solid #d8e0ee;
+  border-bottom: 1px solid #d8e0ee;
+}
+
+.legend-total-line {
+  font-size: 11px;
+  font-weight: 600;
+  color: #013984;
+  text-align: center;
+}
+
+.legend-row i {
   width: 12px;
   height: 12px;
   border-radius: 3px;
   flex: none;
-}
-
-.chart-legend i.legend-blank {
-  background: #ffffff;
-  border: 1px solid #E4E9F2;
 }
 
 /* image gallery below the fold on the zoning page */
@@ -347,28 +491,12 @@ a.cover-link {
   align-items: center;
   gap: 0.5em;
   padding: 0.55em 1.1em;
-  background: #013984;
-  color: #fff;
+  background: #ffffff;
+  color: #013984;
   text-decoration: none;
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: 3px;
   z-index: 5;
-}
-
-.back-link:hover {
-  background: #ff6401;
-}
-
-/* cover back-link on the map page: white on white, barely visible until hovered */
-.back-link.to-cover {
-  background: rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.back-link.to-cover:hover,
-.back-link.to-cover:focus-visible {
-  background: #ffffff;
-  color: #013984;
 }
