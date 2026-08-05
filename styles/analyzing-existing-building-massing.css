@@ -55,71 +55,121 @@ body {
 
 .massing-analysis-card {
     position: absolute;
-
     margin: 0;
-
     color: #013984;
-
     pointer-events: auto;
 }
 
 .massing-image-frame {
-    display: inline-block;
-
+    position: relative;
+    display: block;
     width: 100%;
 
-    border: 5px solid #013984;
-
+    border: 4px solid #013984;
     background: #ffffff;
 
     overflow: hidden;
-
     line-height: 0;
 }
 
 .massing-image-frame img {
     display: block;
-
     width: 100%;
     height: auto;
-}
-
-.massing-image-frame--dark {
-    background: #000000;
 }
 
 
 /* ==========================================
    COLLAGE POSITIONING
+   Keep images away from background text
    ========================================== */
 
-.result-card {
-    width: min(28vw, 410px);
+.massing-analysis-collage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
+
+/* Image 01 — lower-left */
+
 .result-card--suitable {
-    top: 1vh;
+    top: 60vh;
     left: 4vw;
+
+    width: min(25vw, 370px);
 
     z-index: 4;
 }
 
+
+/* Image 02 — lower-right */
+
 .result-card--modification {
-    top: 3vh;
+    top: 60vh;
     right: 4vw;
 
-    z-index: 5;
+    width: min(25vw, 370px);
+
+    z-index: 4;
 }
 
-.workflow-card {
-    top: 42vh;
-    left: 8vw;
 
-    width: min(72vw, 1100px);
+/* Image 03 — centered in lower open area */
+
+.workflow-card {
+    top: 23vh;
+    left: 50%;
+
+    width: min(100vw, 1300px);
+
+    transform: translateX(-50%);
 
     z-index: 3;
 }
 
+
+/* ==========================================
+   IMAGE 03 — NO FRAME OR BACKGROUND
+   ========================================== */
+
+.workflow-card .massing-image-frame {
+    border: none;
+    background: transparent;
+    overflow: visible;
+}
+
+.workflow-card .massing-image-frame--dark {
+    background: transparent;
+}
+
+.workflow-card .massing-image-frame img {
+    width: 100%;
+    height: auto;
+
+    background: transparent;
+
+    /*
+       The uploaded PNG has black pixels in its background.
+       Screen blending makes those black pixels disappear
+       against the light page.
+    */
+    mix-blend-mode: screen;
+}
+
+
+/* Keep Image 03 caption readable */
+
+.workflow-card figcaption {
+    width: max-content;
+    max-width: 100%;
+
+    margin-top: 4px;
+    padding: 2px 5px;
+
+    background: rgba(255, 255, 255, 0.88);
+}
 
 /* ==========================================
    CAPTIONS
@@ -230,4 +280,22 @@ body {
     .massing-analysis-card figcaption {
         font-size: 8px;
     }
+}
+
+.result-card--modification {
+    top: 58vh;
+    left: 4vw;
+
+    width: min(24vw, 370px);
+
+    z-index: 4;
+}
+
+.result-card--required {
+    top: 58vh;
+    right: 4vw;
+
+    width: min(24vw, 370px);
+
+    z-index: 4;
 }
