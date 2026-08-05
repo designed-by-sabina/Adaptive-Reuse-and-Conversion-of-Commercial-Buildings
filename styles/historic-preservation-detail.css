@@ -1,231 +1,286 @@
-/* Historic preservation collage
-   Loaded after styles/main.css and limited to this page. */
+/* ==========================================
+   HISTORIC PRESERVATION DETAIL PAGE
+   ========================================== */
 
 .historic-detail-stage {
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 .historic-detail-stage > .bg {
-  z-index: 0;
-  pointer-events: none;
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
 }
 
+/* ==========================================
+   COLLAGE CONTAINER
+   ========================================== */
+
 .preservation-gallery {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 .preservation-collage {
-  position: absolute;
-  top: 8.5vh;
-  left: 4.5vw;
-  width: 71vw;
-  height: 80vh;
+    position: absolute;
+    top: 11vh;
+    left: 14vw;
+    width: 74vw;
+    height: 82vh;
 }
+
+/* ==========================================
+   IMAGE CARDS
+   ========================================== */
 
 .preservation-card {
-  position: absolute;
-  margin: 0;
-  pointer-events: auto;
+    position: absolute;
+    margin: 0;
+    transform: none;
+    pointer-events: auto;
 }
 
-.preservation-image-frame,
-.classification-legend {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  border: 4px solid #013984;
-  background: #ffffff;
-  line-height: 0;
-  box-shadow: 0 2px 0 rgba(1, 57, 132, 0.08);
+.preservation-image-frame {
+    position: relative;
+    display: inline-block;
+    border: 5px solid #013984;
+    background: #ffffff;
+    overflow: hidden;
+    line-height: 0;
 }
 
-.preservation-image-frame img,
-.classification-legend img {
-  display: block;
-  width: 100%;
-  height: auto;
+.preservation-image-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-/* Individual collage placement */
+/* ==========================================
+   COLLAGE POSITIONS
+   ========================================== */
+
 .card-01 {
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: clamp(125px, 13vw, 205px);
+    top: 0;
+    left: 0;
+    width: 290px;
+    z-index: 4;
 }
 
 .card-02 {
-  top: 1.5vh;
-  left: 12.3vw;
-  z-index: 5;
-  width: clamp(125px, 13vw, 205px);
+    top: 35vh;
+    left: 2vw;
+    width: 550px;
+    z-index: 3;
 }
 
 .card-03 {
-  top: 19vh;
-  left: 2vw;
-  z-index: 2;
-  width: clamp(410px, 41vw, 660px);
+    top: 1.5vh;
+    left: 35vw;
+    width: 320px;
+    z-index: 5;
 }
 
 .card-04 {
-  top: 2vh;
-  left: 29vw;
-  z-index: 4;
-  width: clamp(245px, 25vw, 395px);
+    top: 15.5vh;
+    left: 29vw;
+    width: 350px;
+    z-index: 6;
 }
 
 .card-05 {
-  top: 31vh;
-  left: 38vw;
-  z-index: 6;
-  width: clamp(285px, 29vw, 455px);
+    top: 40vh;
+    left: 35vW;
+    width: 390px;
+    z-index: 7;
 }
 
-.card-06 {
-  top: 52vh;
-  left: 12vw;
-  z-index: 7;
-  width: clamp(300px, 32vw, 505px);
-}
+/* ==========================================
+   IMAGE 02 LEGEND
+   ========================================== */
 
-/* Image 03 and its separate legend */
 .image-and-legend {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.65rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
 }
 
-.card-03 .preservation-image-frame {
-  width: min(34vw, 545px);
+.card-02 .preservation-image-frame {
+    width: 500px;
 }
 
 .classification-legend {
-  width: clamp(72px, 6.5vw, 105px);
-  flex: 0 0 auto;
+    display: inline-block;
+    width: 92px;
+    flex-shrink: 0;
+    border: 5px solid #013984;
+    background: #ffffff;
+    line-height: 0;
 }
 
-/* Caption treatment */
+.classification-legend img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* ==========================================
+   IMAGE CAPTIONS
+   ========================================== */
+
 .preservation-card figcaption {
-  display: flex;
-  gap: 0.5rem;
-  max-width: 100%;
-  margin-top: 0.32rem;
-  color: #013984;
-  font-size: clamp(7px, 0.58vw, 10px);
-  font-weight: 500;
-  line-height: 1.25;
-  text-transform: uppercase;
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    max-width: 100%;
+    margin-top: 5px;
+    color: #013984;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-transform: uppercase;
 }
 
-.preservation-card figcaption span {
-  color: #ff6401;
-  flex: 0 0 auto;
+.figure-number {
+    flex-shrink: 0;
+    color: #ff6401;
+    font-weight: 600;
 }
+
+.figure-title {
+    display: block;
+}
+
+/* ==========================================
+   SOURCE NUMBER ON EACH IMAGE
+   ========================================== */
 
 .image-source {
-  position: absolute;
-  right: 0.3rem;
-  bottom: 0.28rem;
-  z-index: 3;
-  padding: 0.2rem 0.32rem;
-  background: rgba(255, 255, 255, 0.92);
-  color: #013984;
-  font-size: 7px;
-  line-height: 1;
-  letter-spacing: 0.05em;
-  text-decoration: none;
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    z-index: 3;
+    padding: 3px 5px;
+    background: rgba(255, 255, 255, 0.94);
+    color: #013984;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
 }
 
 .image-source:hover,
 .image-source:focus-visible {
-  color: #ff6401;
-  outline: none;
+    color: #ff6401;
+    outline: none;
 }
 
-/* Sources stay in the lower-right corner and clear the collage. */
+/* ==========================================
+   SOURCE INDEX
+   ========================================== */
+
 .source-index {
-  position: absolute;
-  z-index: 8;
-  right: 2.4vw;
-  bottom: 2.2vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: min(24vw, 390px);
-  color: #013984;
-  font-size: clamp(6px, 0.47vw, 8px);
-  line-height: 1.35;
-  text-align: right;
+    position: absolute;
+    right: 2vw;
+    bottom: 2vh;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    width: auto;
+    max-width: none;
+    color: #013984;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7px;
+    line-height: 1.25;
+    text-align: right;
 }
 
-.source-index > span {
-  margin-bottom: 0.22rem;
-  color: #ff6401;
-  letter-spacing: 0.08em;
+.source-index-title {
+    margin-bottom: 2px;
+    color: #ff6401;
+    font-weight: 600;
+    letter-spacing: 0.08em;
 }
 
 .source-index a {
-  color: #013984;
-  text-decoration: none;
+    display: block;
+    color: #013984;
+    font-size: 7px;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 .source-index a:hover,
 .source-index a:focus-visible {
-  color: #ff6401;
-  outline: none;
+    color: #ff6401;
+    outline: none;
 }
 
-/* Scale the collage down on shorter screens without introducing a scrollbar. */
-@media (max-height: 760px) and (min-width: 721px) {
-  .preservation-collage {
-    top: 7vh;
-    transform: scale(0.88);
-    transform-origin: top left;
-    width: 79vw;
-  }
+/* ==========================================
+   SHORTER DESKTOP SCREENS
+   ========================================== */
+
+@media (max-height: 780px) and (min-width: 1001px) {
+    .preservation-collage {
+        top: 10vh;
+        left: 14vw;
+        transform: scale(0.88);
+        transform-origin: top left;
+    }
 }
 
-@media (max-width: 1000px) {
-  .preservation-collage {
-    left: 3.5vw;
-    transform: scale(0.84);
-    transform-origin: top left;
-    width: 82vw;
-  }
+/* ==========================================
+   MEDIUM SCREENS
+   ========================================== */
 
-  .source-index {
-    width: 27vw;
-  }
+@media (max-width: 1200px) {
+    .preservation-collage {
+        top: 11vh;
+        left: 13vw;
+        transform: scale(0.82);
+        transform-origin: top left;
+    }
+
+    .source-index {
+        right: 1.5vw;
+        font-size: 6px;
+    }
+
+    .source-index a {
+        font-size: 6px;
+    }
 }
 
-@media (max-width: 720px) {
-  html,
-  body,
-  .historic-detail-stage {
-    overflow: hidden;
-  }
+/* ==========================================
+   SMALL SCREENS
+   ========================================== */
 
-  .historic-detail-stage > .bg {
-    opacity: 0.24;
-  }
+@media (max-width: 800px) {
+    .historic-detail-stage > .bg {
+        opacity: 0.25;
+    }
 
-  .preservation-collage {
-    top: 10vh;
-    left: 3vw;
-    width: 112vw;
-    transform: scale(0.62);
-    transform-origin: top left;
-  }
+    .preservation-collage {
+        top: 11vh;
+        left: 14vw;
+        transform: scale(0.58);
+        transform-origin: top left;
+    }
 
-  .source-index {
-    right: 1rem;
-    bottom: 1rem;
-    width: 42vw;
-    font-size: 6px;
-  }
+    .source-index {
+        right: 10px;
+        bottom: 10px;
+        font-size: 5px;
+    }
+
+    .source-index a {
+        font-size: 5px;
+    }
 }

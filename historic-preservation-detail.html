@@ -1,130 +1,363 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Historic Preservation and 3D Laser Scanning</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/main.css" />
-  <link rel="stylesheet" href="styles/historic-preservation-detail.css" />
+<head>
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    />
+
+    <title>
+        Historic Preservation and 3D Laser Scanning
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        rel="stylesheet"
+        href="styles/main.css"
+    />
+
+    <link
+        rel="stylesheet"
+        href="styles/historic-preservation-detail.css"
+    />
 </head>
 
 <body>
-  <div class="stage light historic-detail-stage">
-    <a class="back-link action-mark-host" href="historic-preservation-and-laser-scanning.html">
-      <span class="action-mark-group"><span class="action-mark"></span></span>
-      <span class="action-mark-text">&larr; Back</span>
+
+    <div class="stage light historic-detail-stage">
+
+        <!-- ==========================================
+             NAVIGATION
+        =========================================== -->
+
+        <a
+            class="back-link action-mark-host"
+            href="historic-preservation-and-laser-scanning.html"
+        >
+            <span class="action-mark-group">
+                <span class="action-mark"></span>
+            </span>
+
+            <span class="action-mark-text">
+                &larr; Back
+            </span>
+        </a>
+
+
+        <a
+            class="next-link action-mark-host"
+            href="directions.html"
+        >
+            <span class="action-mark-group">
+                <span class="action-mark"></span>
+            </span>
+
+            <span class="action-mark-text">
+                Map
+            </span>
+        </a>
+
+
+        <!-- ==========================================
+             BACKGROUND
+        =========================================== -->
+
+        <img
+            class="bg"
+            src="assets/page-historic-preservation.png"
+            alt="Historic Preservation and 3D Laser Scanning diagram"
+        />
+
+
+        <!-- ==========================================
+             IMAGE COLLAGE
+        =========================================== -->
+
+        <main
+            class="preservation-gallery"
+            aria-label="Historic preservation and laser scanning precedents"
+        >
+
+            <section class="preservation-collage">
+
+
+                <!-- ==========================================
+                     IMAGE 01
+                     SOURCE 01
+                =========================================== -->
+
+                <figure class="preservation-card card-01">
+
+                    <div class="preservation-image-frame">
+
+                        <img
+                            src="assets/1-s2.0-S0926580518310252-gr3 - Copy.jpg"
+                            alt="Point cloud classification showing the principal facade in green, recesses in blue, and protrusions in red"
+                        />
+
+                        <a
+                            class="image-source"
+                            href="https://www.sciencedirect.com/science/article/pii/S0926580518310252"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            SOURCE 01
+                        </a>
+
+                    </div>
+
+                    <figcaption>
+
+                        <span class="figure-number">
+                            01
+                        </span>
+
+                        <span class="figure-title">
+                            Point Cloud Classification into 3 Classes:
+                            Principal Facade in Green, Recesses in Blue,
+                            Protrusions in Red
+                        </span>
+
+                    </figcaption>
+
+                </figure>
+
+
+                <!-- ==========================================
+                     IMAGE 02 + LEGEND
+                     SOURCE 04
+                =========================================== -->
+
+                <figure class="preservation-card card-02">
+
+                    <div class="image-and-legend">
+
+                        <div class="preservation-image-frame">
+
+                            <img
+                                src="assets/Labeling.jpg"
+                                alt="Point cloud semantic segmentation showing classified interior building elements"
+                            />
+
+                            <a
+                                class="image-source"
+                                href="https://ascelibrary.org/doi/full/10.1061/(ASCE)CO.1943-7862.0002132"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                SOURCE 04
+                            </a>
+
+                        </div>
+
+
+                        <div class="classification-legend">
+
+                            <img
+                                src="assets/point-cloud-classification-legend.png"
+                                alt="Point cloud classification legend showing beam, ceiling, column, floor, pipe, and wall"
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <figcaption>
+
+                        <span class="figure-number">
+                            02
+                        </span>
+
+                        <span class="figure-title">
+                            Point Cloud Semantic Segmentation of Building Elements
+                        </span>
+
+                    </figcaption>
+
+                </figure>
+
+
+                <!-- ==========================================
+                     IMAGE 03
+                     SOURCE 02
+                =========================================== -->
+
+                <figure class="preservation-card card-03">
+
+                    <div class="preservation-image-frame">
+
+                        <img
+                            src="assets/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design_3.jpg"
+                            alt="X-ray Vision by Arcadis and Autodesk showing on-site building scanning"
+                        />
+
+                        <a
+                            class="image-source"
+                            href="https://www.archdaily.com/1035859/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            SOURCE 02
+                        </a>
+
+                    </div>
+
+                    <figcaption>
+
+                        <span class="figure-number">
+                            03
+                        </span>
+
+                        <span class="figure-title">
+                            X-ray Vision by Arcadis and Autodesk
+                        </span>
+
+                    </figcaption>
+
+                </figure>
+
+
+                <!-- ==========================================
+                     IMAGE 04
+                     SOURCE 02
+                =========================================== -->
+
+                <figure class="preservation-card card-04">
+
+                    <div class="preservation-image-frame">
+
+                        <img
+                            src="assets/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design_4.jpg"
+                            alt="X-ray Vision by Arcadis and Autodesk showing combined building data and inferred wall systems"
+                        />
+
+                        <a
+                            class="image-source"
+                            href="https://www.archdaily.com/1035859/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            SOURCE 02
+                        </a>
+
+                    </div>
+
+                    <figcaption>
+
+                        <span class="figure-number">
+                            04
+                        </span>
+
+                        <span class="figure-title">
+                            X-ray Vision by Arcadis and Autodesk
+                        </span>
+
+                    </figcaption>
+
+                </figure>
+
+
+                <!-- ==========================================
+                     IMAGE 05
+                     SOURCE 03
+                =========================================== -->
+
+                <figure class="preservation-card card-05">
+
+                    <div class="preservation-image-frame">
+
+                        <img
+                            src="assets/uarc_a_1900951_f0001_oc.jpg"
+                            alt="Architectural heritage information model generated from point cloud data"
+                        />
+
+                        <a
+                            class="image-source"
+                            href="https://www.tandfonline.com/doi/full/10.1080/15583058.2021.1900951"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            SOURCE 03
+                        </a>
+
+                    </div>
+
+                    <figcaption>
+
+                        <span class="figure-number">
+                            05
+                        </span>
+
+                        <span class="figure-title">
+                            Point Cloud Data in an Architectural Heritage
+                            Information Model
+                        </span>
+
+                    </figcaption>
+
+                </figure>
+
+            </section>
+
+        </main>
+
+
+        <!-- ==========================================
+             SOURCES
+        =========================================== -->
+
+        <aside class="source-index" aria-label="Image sources">
+
+    <span class="source-index-title">
+        SOURCES
+    </span>
+
+    <a
+        href="https://www.sciencedirect.com/science/article/pii/S0926580518310252"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        01 · Point Cloud Segmentation and Classification of Structural Elements in Multi-planar Masonry Building Facades / Automation in Construction
     </a>
 
-    <a class="next-link action-mark-host" href="directions.html">
-      <span class="action-mark-group"><span class="action-mark"></span></span>
-      <span class="action-mark-text">Map</span>
+    <a
+        href="https://www.archdaily.com/1035859/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        02 · See Through Walls: Adaptive Reuse Through Data, AI, and Circular Design / ArchDaily
     </a>
 
-    <img class="bg" src="assets/page-historic-preservation.png"
-         alt="Historic Preservation and 3D Laser Scanning diagram" />
+    <a
+        href="https://www.tandfonline.com/doi/full/10.1080/15583058.2021.1900951"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        03 · Operability of Point Cloud Data in an Architectural Heritage Information Model / International Journal of Architectural Heritage
+    </a>
 
-    <main class="preservation-gallery" aria-label="Historic preservation scanning precedents">
-      <section class="preservation-collage">
+    <a
+        href="https://ascelibrary.org/doi/full/10.1061/(ASCE)CO.1943-7862.0002132"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        04 · Scan2BIM-NET: Deep Learning Method for Segmentation of Point Clouds for Scan-to-BIM / Journal of Construction Engineering and Management
+    </a>
 
-        <figure class="preservation-card card-01">
-          <div class="preservation-image-frame">
-            <img src="assets/1-s2.0-S0926580518310252-gr3 - Copy - Copy.jpg"
-                 alt="Masonry building facade used as the case study" />
-            <a class="image-source"
-               href="https://www.sciencedirect.com/science/article/pii/S0926580518310252"
-               target="_blank" rel="noopener noreferrer">01</a>
-          </div>
-          <figcaption><span>01</span> Case study building facade</figcaption>
-        </figure>
+</aside>
 
-        <figure class="preservation-card card-02">
-          <div class="preservation-image-frame">
-            <img src="assets/1-s2.0-S0926580518310252-gr3 - Copy.jpg"
-                 alt="Point cloud segmentation and classification of the masonry facade" />
-            <a class="image-source"
-               href="https://www.sciencedirect.com/science/article/pii/S0926580518310252"
-               target="_blank" rel="noopener noreferrer">01</a>
-          </div>
-          <figcaption><span>02</span> Point cloud segmentation and classification results</figcaption>
-        </figure>
+    </div>
 
-        <figure class="preservation-card card-03">
-          <div class="image-and-legend">
-            <div class="preservation-image-frame">
-              <img src="assets/Labeling.jpg"
-                   alt="Point cloud views classified by interior building element" />
-              <a class="image-source"
-                 href="https://ascelibrary.org/doi/full/10.1061/(ASCE)CO.1943-7862.0002132"
-                 target="_blank" rel="noopener noreferrer">04</a>
-            </div>
 
-            <div class="classification-legend">
-              <img src="assets/point-cloud-classification-legend.png"
-                   alt="Point cloud classification legend: beam, ceiling, column, floor, pipe, and wall" />
-            </div>
-          </div>
-          <figcaption><span>03</span> Point cloud semantic segmentation results</figcaption>
-        </figure>
+    <script src="javascript/main.js"></script>
 
-        <figure class="preservation-card card-04">
-          <div class="preservation-image-frame">
-            <img src="assets/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design_3.jpg"
-                 alt="Screenshot from See Through Walls showing on-site wall scanning" />
-            <a class="image-source"
-               href="https://www.archdaily.com/1035859/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design"
-               target="_blank" rel="noopener noreferrer">02</a>
-          </div>
-          <figcaption><span>04</span> Screenshot of the video</figcaption>
-        </figure>
-
-        <figure class="preservation-card card-05">
-          <div class="preservation-image-frame">
-            <img src="assets/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design_4.jpg"
-                 alt="Screenshot from See Through Walls showing a multimodal wall assembly workflow" />
-            <a class="image-source"
-               href="https://www.archdaily.com/1035859/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design"
-               target="_blank" rel="noopener noreferrer">02</a>
-          </div>
-          <figcaption><span>05</span> Screenshot of the video</figcaption>
-        </figure>
-
-        <figure class="preservation-card card-06">
-          <div class="preservation-image-frame">
-            <img src="assets/uarc_a_1900951_f0001_oc.jpg"
-                 alt="Point cloud model of an architectural heritage interior" />
-            <a class="image-source"
-               href="https://www.tandfonline.com/doi/full/10.1080/15583058.2021.1900951"
-               target="_blank" rel="noopener noreferrer">03</a>
-          </div>
-          <figcaption><span>06</span> Point cloud data in an architectural heritage information model</figcaption>
-        </figure>
-
-      </section>
-    </main>
-
-    <aside class="source-index" aria-label="Image sources">
-      <span>SOURCES</span>
-      <a href="https://www.sciencedirect.com/science/article/pii/S0926580518310252"
-         target="_blank" rel="noopener noreferrer">
-         01 · Point cloud segmentation and classification of structural elements in multi-planar masonry building facades
-      </a>
-      <a href="https://www.archdaily.com/1035859/see-through-walls-adaptive-reuse-through-data-ai-and-circular-design"
-         target="_blank" rel="noopener noreferrer">
-         02 · See Through Walls: Adaptive Reuse Through Data, AI, and Circular Design
-      </a>
-      <a href="https://www.tandfonline.com/doi/full/10.1080/15583058.2021.1900951"
-         target="_blank" rel="noopener noreferrer">
-         03 · Operability of Point Cloud Data in an Architectural Heritage Information Model
-      </a>
-      <a href="https://ascelibrary.org/doi/full/10.1061/(ASCE)CO.1943-7862.0002132"
-         target="_blank" rel="noopener noreferrer">
-         04 · Scan2BIM-NET: Deep Learning Method for Segmentation of Point Clouds for Scan-to-BIM
-      </a>
-    </aside>
-  </div>
-
-  <script src="javascript/main.js"></script>
 </body>
+
 </html>
