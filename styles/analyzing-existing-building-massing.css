@@ -4,8 +4,7 @@
 
 html,
 body {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     background: #ffffff;
 }
 
@@ -14,28 +13,37 @@ body {
     z-index: 1;
 }
 
+.massing-stage > .bg {
+    z-index: 0;
+}
+
 
 /* ==========================================
    IMAGE GALLERY
    ========================================== */
 
 .massing-analysis-gallery {
-    position: relative;
+    position: absolute;
+    inset: 0;
+
     z-index: 2;
 
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
 
-    padding: 7vh 5vw 10vh;
+    padding: 8vh 5vw 5vh;
 
-    background: #ffffff;
+    overflow: hidden;
+    background: transparent;
+
+    pointer-events: none;
 }
-
 
 .massing-analysis-collage {
     position: relative;
 
-    width: min(1400px, 90vw);
-    min-height: 900px;
+    width: 90vw;
+    height: 86vh;
 
     margin: 0 auto;
 }
@@ -51,8 +59,9 @@ body {
     margin: 0;
 
     color: #013984;
-}
 
+    pointer-events: auto;
+}
 
 .massing-image-frame {
     display: inline-block;
@@ -68,14 +77,12 @@ body {
     line-height: 0;
 }
 
-
 .massing-image-frame img {
     display: block;
 
     width: 100%;
     height: auto;
 }
-
 
 .massing-image-frame--dark {
     background: #000000;
@@ -87,33 +94,30 @@ body {
    ========================================== */
 
 .result-card {
-    width: min(37vw, 540px);
+    width: min(28vw, 410px);
 }
-
 
 .result-card--suitable {
-    top: 0;
-    left: 0;
-
-    z-index: 3;
-}
-
-
-.result-card--modification {
-    top: 8vh;
-    right: 0;
+    top: 1vh;
+    left: 4vw;
 
     z-index: 4;
 }
 
+.result-card--modification {
+    top: 3vh;
+    right: 4vw;
+
+    z-index: 5;
+}
 
 .workflow-card {
-    top: 47vh;
-    left: 4vw;
+    top: 42vh;
+    left: 8vw;
 
-    width: min(78vw, 1180px);
+    width: min(72vw, 1100px);
 
-    z-index: 2;
+    z-index: 3;
 }
 
 
@@ -141,7 +145,6 @@ body {
     text-transform: uppercase;
 }
 
-
 .figure-number {
     flex: 0 0 auto;
 
@@ -149,7 +152,6 @@ body {
 
     font-weight: 600;
 }
-
 
 .figure-title {
     display: block;
@@ -162,32 +164,46 @@ body {
 
 @media (max-width: 1100px) {
 
-    .massing-analysis-collage {
-        min-height: 760px;
-    }
-
-
     .result-card {
-        width: 41vw;
+        width: 34vw;
     }
 
+    .result-card--suitable {
+        left: 2vw;
+    }
+
+    .result-card--modification {
+        right: 2vw;
+    }
 
     .workflow-card {
         top: 40vh;
-        left: 2vw;
+        left: 4vw;
 
-        width: 82vw;
+        width: 78vw;
     }
-
 }
-
 
 @media (max-width: 760px) {
 
-    .massing-analysis-gallery {
-        padding: 5vh 5vw 8vh;
+    html,
+    body {
+        overflow-y: auto;
     }
 
+    .massing-analysis-gallery {
+        position: relative;
+
+        width: 100%;
+        height: auto;
+
+        min-height: 100vh;
+
+        padding: 6vh 5vw 8vh;
+
+        overflow: visible;
+        background: #ffffff;
+    }
 
     .massing-analysis-collage {
         display: flex;
@@ -196,9 +212,10 @@ body {
         gap: 2.4rem;
 
         width: 90vw;
-        min-height: 0;
-    }
+        height: auto;
 
+        margin: 0 auto;
+    }
 
     .massing-analysis-card {
         position: relative;
@@ -210,9 +227,7 @@ body {
         width: 100%;
     }
 
-
     .massing-analysis-card figcaption {
         font-size: 8px;
     }
-
 }
