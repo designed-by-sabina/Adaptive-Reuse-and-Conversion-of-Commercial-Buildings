@@ -756,3 +756,39 @@ a.cover-link {
   border-radius: 3px;
   z-index: 5;
 }
+
+/* small citation block, footnote-style, laid directly over the background
+   with no frame so it stays out of the way of the map/legend/info panels */
+.sources {
+  position: fixed;
+  right: 16%;
+  bottom: 27.5%;
+  max-width: 340px;
+  z-index: 4;
+}
+
+.sources-title {
+  margin: 0 0 0.3em;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #013984;
+}
+
+.sources ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sources li {
+  white-space: nowrap;
+  font-size: 8px;
+  line-height: 1.4;
+  color: #6a7891;
+}
+
+.sources li + li {
+  margin-top: 0.25em;
+}
