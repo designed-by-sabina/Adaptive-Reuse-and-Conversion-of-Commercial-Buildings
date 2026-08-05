@@ -8,6 +8,11 @@ body {
     background: #ffffff;
 }
 
+
+/* ==========================================
+   ORIGINAL BACKGROUND PAGE
+   ========================================== */
+
 .massing-stage {
     position: relative;
     z-index: 1;
@@ -31,7 +36,7 @@ body {
     width: 100vw;
     height: 100vh;
 
-    padding: 8vh 5vw 5vh;
+    padding: 0;
 
     overflow: hidden;
     background: transparent;
@@ -42,10 +47,10 @@ body {
 .massing-analysis-collage {
     position: relative;
 
-    width: 90vw;
-    height: 86vh;
+    width: 100%;
+    height: 100%;
 
-    margin: 0 auto;
+    margin: 0;
 }
 
 
@@ -55,77 +60,54 @@ body {
 
 .massing-analysis-card {
     position: absolute;
+
     margin: 0;
+
     color: #013984;
+
     pointer-events: auto;
 }
 
-/* ==========================================
-   ANALYSIS IMAGES
-   ========================================== */
+.massing-image-frame {
+    position: relative;
 
-.result-card--suitable .massing-image-frame,
-.result-card--required .massing-image-frame {
+    display: block;
+
+    width: 100%;
+
     border: none;
     background: transparent;
+
     overflow: visible;
+
+    line-height: 0;
+}
+
+.massing-image-frame img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
 }
 
 
 /* ==========================================
-   COLLAGE POSITIONING
-   Keep images away from background text
+   IMAGE 01
+   GRASSHOPPER WORKFLOW
    ========================================== */
 
-.massing-analysis-collage {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
-
-
-/* Image 01 — lower-left */
-
-.result-card--suitable {
-    top: 60vh;
-    left: 4vw;
-
-    width: min(25vw, 370px);
-
-    z-index: 4;
-}
-
-
-/* Image 02 — lower-right */
-
-.result-card--modification {
-    top: 60vh;
-    right: 4vw;
-
-    width: min(25vw, 370px);
-
-    z-index: 4;
-}
-
-
-/* Image 03 — centered in lower open area */
-
 .workflow-card {
-    top: 23vh;
+    top: 37vh;
     left: 50%;
 
-    width: min(100vw, 1300px);
+    width: min(86vw, 1300px);
 
     transform: translateX(-50%);
 
-    z-index: 3;
+    z-index: 2;
 }
-
-
-/* ==========================================
-   IMAGE 03 — NO FRAME OR BACKGROUND
-   ========================================== */
 
 .workflow-card .massing-image-frame {
     border: none;
@@ -143,191 +125,75 @@ body {
 
     background: transparent;
 
-    /*
-       The uploaded PNG has black pixels in its background.
-       Screen blending makes those black pixels disappear
-       against the light page.
-    */
     mix-blend-mode: screen;
 }
 
 
-/* Keep Image 03 caption readable */
-
-.workflow-card figcaption {
-    width: max-content;
-    max-width: 100%;
-
-    margin-top: 4px;
-    padding: 2px 5px;
-
-    background: rgba(255, 255, 255, 0.88);
-}
-
 /* ==========================================
-   CAPTIONS
+   IMAGE 02
+   SMALL ANALYSIS — BOTTOM LEFT
+   ========================================== */
+/* ==========================================
+   ANALYSIS IMAGE
    ========================================== */
 
-.massing-analysis-card figcaption {
-    display: flex;
-    align-items: flex-start;
+.result-card--modification {
+    position: absolute;
 
-    gap: 8px;
+    left: 3vw;
+    bottom: 10vh;
 
-    margin-top: 7px;
+    top: auto;
+    right: auto;
+
+    width: 240px;
+
+    z-index: 5;
+}
+
+.result-card--modification .massing-image-frame {
+    border: none;
+    background: transparent;
+    overflow: visible;
+
+    width: 240px;
+}
+
+.result-card--modification img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
+}
+
+
+/* ==========================================
+   CAPTION
+   ========================================== */
+
+.result-card--modification figcaption {
+    position: relative;
+
+    width: 240px;
+
+    margin-top: 8px;
 
     color: #013984;
 
     font-family: "JetBrains Mono", monospace;
 
-    font-size: 10px;
-    font-weight: 500;
-
-    line-height: 1.35;
-
-    text-transform: uppercase;
-}
-
-.figure-number {
-    flex: 0 0 auto;
-
-    color: #ff6401;
-
-    font-weight: 600;
-}
-
-.figure-title {
-    display: block;
-}
-
-
-/* ==========================================
-   RESPONSIVE
-   ========================================== */
-
-@media (max-width: 1100px) {
-
-    .result-card {
-        width: 34vw;
-    }
-
-    .result-card--suitable {
-        left: 2vw;
-    }
-
-    .result-card--modification {
-        right: 2vw;
-    }
-
-    .workflow-card {
-        top: 40vh;
-        left: 4vw;
-
-        width: 78vw;
-    }
-}
-
-@media (max-width: 760px) {
-
-    html,
-    body {
-        overflow-y: auto;
-    }
-
-    .massing-analysis-gallery {
-        position: relative;
-
-        width: 100%;
-        height: auto;
-
-        min-height: 100vh;
-
-        padding: 6vh 5vw 8vh;
-
-        overflow: visible;
-        background: #ffffff;
-    }
-
-    .massing-analysis-collage {
-        display: flex;
-        flex-direction: column;
-
-        gap: 2.4rem;
-
-        width: 90vw;
-        height: auto;
-
-        margin: 0 auto;
-    }
-
-    .massing-analysis-card {
-        position: relative;
-
-        top: auto;
-        right: auto;
-        left: auto;
-
-        width: 100%;
-    }
-
-    .massing-analysis-card figcaption {
-        font-size: 8px;
-    }
-}
-
-.result-card--modification {
-    top: 58vh;
-    left: 4vw;
-
-    width: min(24vw, 370px);
-
-    z-index: 4;
-}
-
-.result-card--required {
-    top: 58vh;
-    right: 4vw;
-
-    width: min(24vw, 370px);
-
-    z-index: 4;
-}
-
-/* ==========================================
-   IMAGE 02
-   ========================================== */
-
-.result-card--suitable {
-
-    top: 67vh;
-    left: 2vw;
-
-    width: min(18vw, 50px);
-
-    z-index: 4;
-}
-
-
-/* ==========================================
-   IMAGE 03
-   ========================================== */
-
-.result-card--required {
-
-    top: 67vh;
-    right: 2vw;
-
-    width: min(18vw, 100px);
-
-    z-index: 4;
-}
-
-.result-card--suitable figcaption,
-.result-card--required figcaption {
-
     font-size: 8px;
+    line-height: 1.3;
 
-    margin-top: 4px;
+    background: transparent;
+}
 
-    max-width: 260px;
+
+/* Move annotation upward */
+
+.result-card--modification .figure-number {
+    color: #ff6401;
+    font-weight: 600;
 }
