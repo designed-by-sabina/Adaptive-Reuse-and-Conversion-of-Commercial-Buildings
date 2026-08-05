@@ -1,5 +1,5 @@
-/* Historic preservation image gallery
-   Loaded after styles/main.css so it only affects this detail page. */
+/* Historic preservation collage
+   Loaded after styles/main.css and limited to this page. */
 
 .historic-detail-stage {
   overflow: hidden;
@@ -13,135 +13,132 @@
 .preservation-gallery {
   position: absolute;
   z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.preservation-collage {
+  position: absolute;
   top: 8.5vh;
-  left: 5vw;
-  width: min(68vw, 1080px);
-  height: 83vh;
-  overflow-y: auto;
-  padding: 0 1.15rem 7rem 0;
-  scrollbar-width: thin;
-  scrollbar-color: #013984 transparent;
-}
-
-.preservation-gallery::-webkit-scrollbar {
-  width: 7px;
-}
-
-.preservation-gallery::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.preservation-gallery::-webkit-scrollbar-thumb {
-  background: #013984;
-  border-radius: 999px;
-}
-
-.preservation-gallery-header {
-  max-width: 760px;
-  margin: 0 0 2rem;
-  color: #013984;
-}
-
-.preservation-eyebrow {
-  margin: 0 0 0.6rem;
-  color: #ff6401;
-  font-size: clamp(9px, 0.72vw, 12px);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.preservation-gallery h1 {
-  margin: 0;
-  max-width: 720px;
-  font-size: clamp(24px, 3vw, 48px);
-  font-weight: 500;
-  line-height: 0.98;
-  letter-spacing: -0.055em;
-}
-
-.preservation-intro {
-  max-width: 650px;
-  margin: 1rem 0 0;
-  font-size: clamp(10px, 0.85vw, 13px);
-  line-height: 1.55;
-}
-
-.preservation-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(1rem, 1.65vw, 1.8rem);
+  left: 4.5vw;
+  width: 71vw;
+  height: 80vh;
 }
 
 .preservation-card {
-  min-width: 0;
+  position: absolute;
   margin: 0;
+  pointer-events: auto;
 }
 
-.preservation-card--small {
-  grid-column: span 4;
-}
-
-.preservation-card--medium {
-  grid-column: span 6;
-}
-
-.preservation-card--wide {
-  grid-column: span 8;
-}
-
-.preservation-card--last {
-  grid-column: 3 / span 8;
-}
-
-.preservation-image-frame {
+.preservation-image-frame,
+.classification-legend {
   position: relative;
+  display: inline-block;
   overflow: hidden;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: #f3f5f8;
-  border: 1px solid rgba(1, 57, 132, 0.28);
+  border: 4px solid #013984;
+  background: #ffffff;
+  line-height: 0;
+  box-shadow: 0 2px 0 rgba(1, 57, 132, 0.08);
 }
 
-.preservation-card--wide .preservation-image-frame {
-  aspect-ratio: 16 / 9;
-}
-
-.preservation-card--medium .preservation-image-frame {
-  aspect-ratio: 2.1 / 1;
-}
-
-.preservation-image-frame img {
+.preservation-image-frame img,
+.classification-legend img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 220ms ease;
+  height: auto;
 }
 
-.preservation-image-frame--contain img {
-  object-fit: contain;
+/* Individual collage placement */
+.card-01 {
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: clamp(125px, 13vw, 205px);
 }
 
-.preservation-image-frame--dark {
-  background: #000;
+.card-02 {
+  top: 1.5vh;
+  left: 12.3vw;
+  z-index: 5;
+  width: clamp(125px, 13vw, 205px);
 }
 
-.preservation-card:hover .preservation-image-frame img {
-  transform: scale(1.015);
+.card-03 {
+  top: 19vh;
+  left: 2vw;
+  z-index: 2;
+  width: clamp(410px, 41vw, 660px);
+}
+
+.card-04 {
+  top: 2vh;
+  left: 29vw;
+  z-index: 4;
+  width: clamp(245px, 25vw, 395px);
+}
+
+.card-05 {
+  top: 31vh;
+  left: 38vw;
+  z-index: 6;
+  width: clamp(285px, 29vw, 455px);
+}
+
+.card-06 {
+  top: 52vh;
+  left: 12vw;
+  z-index: 7;
+  width: clamp(300px, 32vw, 505px);
+}
+
+/* Image 03 and its separate legend */
+.image-and-legend {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.65rem;
+}
+
+.card-03 .preservation-image-frame {
+  width: min(34vw, 545px);
+}
+
+.classification-legend {
+  width: clamp(72px, 6.5vw, 105px);
+  flex: 0 0 auto;
+}
+
+/* Caption treatment */
+.preservation-card figcaption {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 100%;
+  margin-top: 0.32rem;
+  color: #013984;
+  font-size: clamp(7px, 0.58vw, 10px);
+  font-weight: 500;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.preservation-card figcaption span {
+  color: #ff6401;
+  flex: 0 0 auto;
 }
 
 .image-source {
   position: absolute;
-  right: 0.45rem;
-  bottom: 0.42rem;
+  right: 0.3rem;
+  bottom: 0.28rem;
   z-index: 3;
-  padding: 0.22rem 0.38rem;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 0.2rem 0.32rem;
+  background: rgba(255, 255, 255, 0.92);
   color: #013984;
-  font-size: clamp(7px, 0.52vw, 9px);
-  letter-spacing: 0.06em;
+  font-size: 7px;
+  line-height: 1;
+  letter-spacing: 0.05em;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .image-source:hover,
@@ -150,55 +147,24 @@
   outline: none;
 }
 
-.classification-key {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  max-width: calc(100% - 1rem);
-  padding: 0.26rem 0.42rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: #013984;
-  font-size: clamp(7px, 0.52vw, 9px);
-  line-height: 1.35;
-  letter-spacing: 0.035em;
-}
-
-.preservation-card figcaption {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.55rem;
-  align-items: baseline;
-  padding-top: 0.55rem;
-  color: #013984;
-  font-size: clamp(8px, 0.67vw, 11px);
-  line-height: 1.3;
-}
-
-.figure-number {
-  color: #ff6401;
-}
-
-.figure-title {
-  font-weight: 500;
-}
-
+/* Sources stay in the lower-right corner and clear the collage. */
 .source-index {
   position: absolute;
-  z-index: 4;
+  z-index: 8;
   right: 2.4vw;
   bottom: 2.2vh;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  max-width: 26vw;
+  width: min(24vw, 390px);
   color: #013984;
-  font-size: clamp(7px, 0.52vw, 9px);
-  line-height: 1.45;
+  font-size: clamp(6px, 0.47vw, 8px);
+  line-height: 1.35;
   text-align: right;
 }
 
 .source-index > span {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.22rem;
   color: #ff6401;
   letter-spacing: 0.08em;
 }
@@ -214,75 +180,52 @@
   outline: none;
 }
 
+/* Scale the collage down on shorter screens without introducing a scrollbar. */
+@media (max-height: 760px) and (min-width: 721px) {
+  .preservation-collage {
+    top: 7vh;
+    transform: scale(0.88);
+    transform-origin: top left;
+    width: 79vw;
+  }
+}
+
 @media (max-width: 1000px) {
-  .preservation-gallery {
-    width: 72vw;
+  .preservation-collage {
+    left: 3.5vw;
+    transform: scale(0.84);
+    transform-origin: top left;
+    width: 82vw;
   }
 
-  .preservation-card--small,
-  .preservation-card--medium {
-    grid-column: span 6;
-  }
-
-  .preservation-card--wide,
-  .preservation-card--last {
-    grid-column: 1 / -1;
+  .source-index {
+    width: 27vw;
   }
 }
 
 @media (max-width: 720px) {
   html,
-  body {
-    overflow: auto;
-  }
-
+  body,
   .historic-detail-stage {
-    min-height: 100vh;
-    height: auto;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .historic-detail-stage > .bg {
-    position: fixed;
-    opacity: 0.32;
+    opacity: 0.24;
   }
 
-  .preservation-gallery {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: auto;
-    height: auto;
-    margin: 5.5rem 1.25rem 0;
-    padding: 0 0 8rem;
-    overflow: visible;
-  }
-
-  .preservation-grid {
-    display: block;
-  }
-
-  .preservation-card {
-    margin-bottom: 1.5rem;
-  }
-
-  .preservation-image-frame,
-  .preservation-card--wide .preservation-image-frame,
-  .preservation-card--medium .preservation-image-frame {
-    aspect-ratio: auto;
-    min-height: 190px;
-  }
-
-  .preservation-image-frame img {
-    height: auto;
-    min-height: 190px;
+  .preservation-collage {
+    top: 10vh;
+    left: 3vw;
+    width: 112vw;
+    transform: scale(0.62);
+    transform-origin: top left;
   }
 
   .source-index {
-    position: absolute;
-    right: 1.25rem;
-    bottom: 1.5rem;
-    max-width: calc(100% - 2.5rem);
-    font-size: 8px;
+    right: 1rem;
+    bottom: 1rem;
+    width: 42vw;
+    font-size: 6px;
   }
 }
