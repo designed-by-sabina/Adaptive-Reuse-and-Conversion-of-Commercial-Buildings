@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
+
+    <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Analyzing Existing Building Massing</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -10,15 +12,162 @@
   /* this page scrolls past the fixed-viewport stage to reveal the image gallery below */
   html, body { overflow: auto; }
 </style>
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    />
+
+    <title>
+        Analyzing Existing Building Massing
+    </title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        rel="stylesheet"
+        href="styles/main.css"
+    />
+
+    <link
+        rel="stylesheet"
+        href="styles/analyzing-existing-building-massing.css"
+    />
 </head>
+
 <body>
-  <div class="stage light">
-    <a class="back-link action-mark-host" href="directions.html">
-      <span class="action-mark-group"><span class="action-mark"></span></span>
-      <span class="action-mark-text">&larr; Map</span>
-    </a>
-    <img class="bg" src="assets/page-massing.png" alt="Analyzing Existing Building Massing" />
-  </div>
+
+    <!-- ==========================================
+         INTRODUCTION
+    =========================================== -->
+
+    <div class="stage light massing-stage">
+
+        <a
+            class="back-link action-mark-host"
+            href="directions.html"
+        >
+            <span class="action-mark-group">
+                <span class="action-mark"></span>
+            </span>
+
+            <span class="action-mark-text">
+                &larr; Map
+            </span>
+        </a>
+
+        <img
+            class="bg"
+            src="assets/page-massing.png"
+            alt="Analyzing Existing Building Massing diagram"
+        />
+
+    </div>
+
+
+    <!-- ==========================================
+         ANALYSIS IMAGES
+    =========================================== -->
+
+    <main
+        class="massing-analysis-gallery"
+        aria-label="Building massing analysis workflow and results"
+    >
+
+        <section class="massing-analysis-collage">
+
+
+            <!-- ANALYSIS RESULT 01 -->
+
+            <figure class="massing-analysis-card result-card result-card--suitable">
+
+                <div class="massing-image-frame">
+
+                    <img
+                        src="assets/core-analysis-suitable.png"
+                        alt="Grasshopper analysis output stating that the core is wide enough and the floor plate proportion works for conversion"
+                    />
+
+                </div>
+
+                <figcaption>
+
+                    <span class="figure-number">
+                        01
+                    </span>
+
+                    <span class="figure-title">
+                        Core and Floor Plate Analysis — Suitable for Conversion
+                    </span>
+
+                </figcaption>
+
+            </figure>
+
+
+            <!-- ANALYSIS RESULT 02 -->
+
+            <figure class="massing-analysis-card result-card result-card--modification">
+
+                <div class="massing-image-frame">
+
+                    <img
+                        src="assets/core-analysis-modification-required.png"
+                        alt="Grasshopper analysis output stating that the existing floor plate proportion does not work for conversion and should be reduced"
+                    />
+
+                </div>
+
+                <figcaption>
+
+                    <span class="figure-number">
+                        02
+                    </span>
+
+                    <span class="figure-title">
+                        Core and Floor Plate Analysis — Floor Plate Reduction Required
+                    </span>
+
+                </figcaption>
+
+            </figure>
+
+
+            <!-- GRASSHOPPER WORKFLOW -->
+
+            <figure class="massing-analysis-card workflow-card">
+
+                <div class="massing-image-frame massing-image-frame--dark">
+
+                    <img
+                        src="assets/grasshopper-building-massing-workflow.png"
+                        alt="Complete Grasshopper definition for analyzing existing building massing, building core dimensions, and floor plate depth"
+                    />
+
+                </div>
+
+                <figcaption>
+
+                    <span class="figure-number">
+                        03
+                    </span>
+
+                    <span class="figure-title">
+                        Grasshopper Workflow for Existing Building Massing Analysis
+                    </span>
+
+                </figcaption>
+
+            </figure>
+
+        </section>
+
+    </main>
 
 </body>
+
 </html>
