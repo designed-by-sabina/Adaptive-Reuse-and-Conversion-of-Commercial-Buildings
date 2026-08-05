@@ -358,6 +358,7 @@ a.cover-link {
   align-items: center;
   overflow-y: auto;
   scrollbar-width: none;
+  transform: translateY(10vh);
 }
 
 .detail-view::-webkit-scrollbar {
