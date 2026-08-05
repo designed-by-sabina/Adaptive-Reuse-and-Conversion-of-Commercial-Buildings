@@ -1,0 +1,288 @@
+/* Historic preservation image gallery
+   Loaded after styles/main.css so it only affects this detail page. */
+
+.historic-detail-stage {
+  overflow: hidden;
+}
+
+.historic-detail-stage > .bg {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.preservation-gallery {
+  position: absolute;
+  z-index: 2;
+  top: 8.5vh;
+  left: 5vw;
+  width: min(68vw, 1080px);
+  height: 83vh;
+  overflow-y: auto;
+  padding: 0 1.15rem 7rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: #013984 transparent;
+}
+
+.preservation-gallery::-webkit-scrollbar {
+  width: 7px;
+}
+
+.preservation-gallery::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.preservation-gallery::-webkit-scrollbar-thumb {
+  background: #013984;
+  border-radius: 999px;
+}
+
+.preservation-gallery-header {
+  max-width: 760px;
+  margin: 0 0 2rem;
+  color: #013984;
+}
+
+.preservation-eyebrow {
+  margin: 0 0 0.6rem;
+  color: #ff6401;
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.preservation-gallery h1 {
+  margin: 0;
+  max-width: 720px;
+  font-size: clamp(24px, 3vw, 48px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.preservation-intro {
+  max-width: 650px;
+  margin: 1rem 0 0;
+  font-size: clamp(10px, 0.85vw, 13px);
+  line-height: 1.55;
+}
+
+.preservation-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 1.65vw, 1.8rem);
+}
+
+.preservation-card {
+  min-width: 0;
+  margin: 0;
+}
+
+.preservation-card--small {
+  grid-column: span 4;
+}
+
+.preservation-card--medium {
+  grid-column: span 6;
+}
+
+.preservation-card--wide {
+  grid-column: span 8;
+}
+
+.preservation-card--last {
+  grid-column: 3 / span 8;
+}
+
+.preservation-image-frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #f3f5f8;
+  border: 1px solid rgba(1, 57, 132, 0.28);
+}
+
+.preservation-card--wide .preservation-image-frame {
+  aspect-ratio: 16 / 9;
+}
+
+.preservation-card--medium .preservation-image-frame {
+  aspect-ratio: 2.1 / 1;
+}
+
+.preservation-image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.preservation-image-frame--contain img {
+  object-fit: contain;
+}
+
+.preservation-image-frame--dark {
+  background: #000;
+}
+
+.preservation-card:hover .preservation-image-frame img {
+  transform: scale(1.015);
+}
+
+.image-source {
+  position: absolute;
+  right: 0.45rem;
+  bottom: 0.42rem;
+  z-index: 3;
+  padding: 0.22rem 0.38rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #013984;
+  font-size: clamp(7px, 0.52vw, 9px);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.image-source:hover,
+.image-source:focus-visible {
+  color: #ff6401;
+  outline: none;
+}
+
+.classification-key {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  max-width: calc(100% - 1rem);
+  padding: 0.26rem 0.42rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #013984;
+  font-size: clamp(7px, 0.52vw, 9px);
+  line-height: 1.35;
+  letter-spacing: 0.035em;
+}
+
+.preservation-card figcaption {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: baseline;
+  padding-top: 0.55rem;
+  color: #013984;
+  font-size: clamp(8px, 0.67vw, 11px);
+  line-height: 1.3;
+}
+
+.figure-number {
+  color: #ff6401;
+}
+
+.figure-title {
+  font-weight: 500;
+}
+
+.source-index {
+  position: absolute;
+  z-index: 4;
+  right: 2.4vw;
+  bottom: 2.2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 26vw;
+  color: #013984;
+  font-size: clamp(7px, 0.52vw, 9px);
+  line-height: 1.45;
+  text-align: right;
+}
+
+.source-index > span {
+  margin-bottom: 0.2rem;
+  color: #ff6401;
+  letter-spacing: 0.08em;
+}
+
+.source-index a {
+  color: #013984;
+  text-decoration: none;
+}
+
+.source-index a:hover,
+.source-index a:focus-visible {
+  color: #ff6401;
+  outline: none;
+}
+
+@media (max-width: 1000px) {
+  .preservation-gallery {
+    width: 72vw;
+  }
+
+  .preservation-card--small,
+  .preservation-card--medium {
+    grid-column: span 6;
+  }
+
+  .preservation-card--wide,
+  .preservation-card--last {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  html,
+  body {
+    overflow: auto;
+  }
+
+  .historic-detail-stage {
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
+  }
+
+  .historic-detail-stage > .bg {
+    position: fixed;
+    opacity: 0.32;
+  }
+
+  .preservation-gallery {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto;
+    margin: 5.5rem 1.25rem 0;
+    padding: 0 0 8rem;
+    overflow: visible;
+  }
+
+  .preservation-grid {
+    display: block;
+  }
+
+  .preservation-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .preservation-image-frame,
+  .preservation-card--wide .preservation-image-frame,
+  .preservation-card--medium .preservation-image-frame {
+    aspect-ratio: auto;
+    min-height: 190px;
+  }
+
+  .preservation-image-frame img {
+    height: auto;
+    min-height: 190px;
+  }
+
+  .source-index {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.5rem;
+    max-width: calc(100% - 2.5rem);
+    font-size: 8px;
+  }
+}
